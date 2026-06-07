@@ -244,9 +244,7 @@ func clear_grid():
 	var neigh_y = -1
 
 	for y in range(GRID_SIZE):
-		var row = ""
 		for x in range(GRID_SIZE):
-			row += "%d " % [tile_grid[y][x]]
 			if tile_grid[y][x] != -1:
 				# Check neighbor on the right
 				neigh_x = x + 1
@@ -262,7 +260,6 @@ func clear_grid():
 					and tile_grid[y][x] == tile_grid[neigh_y][neigh_x]:
 					destroyed_tiles.append({"x": x, "y": y})
 					destroyed_tiles.append({"x": neigh_x, "y": neigh_y})
-		#print(row)
 	var count = 0
 	for t in destroyed_tiles:
 		# Destroy tile node and update tile grid

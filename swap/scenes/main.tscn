@@ -15,3 +15,40 @@ size = 1.3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="PlaygroundSquare" parent="." unique_id=567022727 instance=ExtResource("1_o5qli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
+
+[node name="Panel" type="Panel" parent="." unique_id=1447637587]
+offset_left = 648.0
+offset_top = 8.0
+offset_right = 1144.0
+offset_bottom = 640.0
+
+[node name="ButtonAvalanche" type="Button" parent="Panel" unique_id=787424420]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 144.0
+offset_bottom = 47.0
+text = "Avalanche"
+
+[node name="ButtonRestart" type="Button" parent="Panel" unique_id=446870877]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 584.0
+offset_right = 344.0
+offset_bottom = 615.0
+text = "Restart Level"
+
+[node name="ButtonQuit" type="Button" parent="Panel" unique_id=387612053]
+layout_mode = 0
+offset_left = 352.0
+offset_top = 584.0
+offset_right = 480.0
+offset_bottom = 615.0
+text = "Quit Game"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=1658878266]
+
+[connection signal="pressed" from="Panel/ButtonAvalanche" to="." method="_on_button_avalanche_pressed"]
+[connection signal="pressed" from="Panel/ButtonRestart" to="." method="_on_button_restart_pressed"]
+[connection signal="pressed" from="Panel/ButtonQuit" to="." method="_on_button_quit_pressed"]
