@@ -11,7 +11,7 @@ var flipped_z = false
 var hover_notified = false
 
 # Signal emitted when the tile is hovered
-signal tile_hovered 
+signal tile_hovered
 # Signal emitted when the tile is clicked
 signal tile_clicked
 # Signal emitted when the tile flip animation ends
@@ -20,10 +20,10 @@ signal tile_flipped
 signal tile_fall_ended
 
 
-enum Side { TOP = 0, RIGHT = 1, BOTTOM = 2, LEFT = 3}
-
-
 func _on_area_3d_input_event(_camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, shape_idx: int) -> void:
+	"""
+	Handles input event on the Area3D node
+	"""
 	if event is InputEventMouseMotion:
 		if not hover_notified:
 			print("Mouse over shape ", shape_idx)
@@ -36,51 +36,63 @@ func _on_area_3d_input_event(_camera: Node, event: InputEvent, _event_position: 
 
 
 func set_grid_pos(x: int, y: int):
+	"""
+	Sets tile logical grid position on the playground.
+	"""
 	grid_x = x
 	grid_y = y
 
 
 func set_material(mat: StandardMaterial3D):
+	"""
+	Sets tile material.
+	"""
 	 # @FIXME I'd like to simplify this subtree to get the mesh directly
 	$Pivot/MeshInstance3D/tile_square_big/TileSquareBig.set_surface_override_material(0, mat)
 
 
 func fix_side(side: int) -> int:
+	"""
+	Returns the side taking into account flips that occured on the tile before.
+	"""
 	match side:
-		Side.TOP:
+		Globals.Sides.TOP:
 			if flipped_z:
-				side = Side.BOTTOM
-		Side.BOTTOM:
+				side = Globals.Sides.BOTTOM
+		Globals.Sides.BOTTOM:
 			if flipped_z:
-				side = Side.TOP
-		Side.LEFT:
+				side = Globals.Sides.TOP
+		Globals.Sides.LEFT:
 			if flipped_x:
-				side = Side.RIGHT
-		Side.RIGHT:
+				side = Globals.Sides.RIGHT
+		Globals.Sides.RIGHT:
 			if flipped_x:
-				side = Side.LEFT
+				side = Globals.Sides.LEFT
 	return side
 
 
 func get_hinge(side: int) -> Dictionary:
+	"""
+	Gets hinge for rotation for given side
+	"""
 	var half = Globals.SQUARE_TILE_SIZE * 0.5
 	match side:
-		Side.TOP:
+		Globals.Sides.TOP:
 			return {
 				"point": global_position + Vector3(0, 0, -half),
 				"axis": Vector3.RIGHT
 			}
-		Side.BOTTOM:
+		Globals.Sides.BOTTOM:
 			return {
 				"point": global_position + Vector3(0, 0, half),
 				"axis": Vector3.RIGHT
 			}
-		Side.LEFT:
+		Globals.Sides.LEFT:
 			return {
 				"point": global_position + Vector3(-half, 0, 0),
 				"axis": Vector3.FORWARD
 			}
-		Side.RIGHT:
+		Globals.Sides.RIGHT:
 			return {
 				"point": global_position + Vector3(half, 0, 0),
 				"axis": Vector3.FORWARD
@@ -89,9 +101,12 @@ func get_hinge(side: int) -> Dictionary:
 
 
 func flip(side: int):
-	if side in [Side.TOP, Side.BOTTOM]:
+	"""
+	Makes the tile flip using given side as rotation axis
+	"""
+	if side in [Globals.Sides.TOP, Globals.Sides.BOTTOM]:
 		flipped_z = not flipped_z
-	elif side in [Side.LEFT, Side.RIGHT]:
+	elif side in [Globals.Sides.LEFT, Globals.Sides.RIGHT]:
 		flipped_x = not flipped_x
 	print("flip on %d" % [side])
 	var data = get_hinge(side)
@@ -134,6 +149,9 @@ func _on_tween_finished():
 
 
 func fall(tile_offset: int):
+	"""
+	Makes the tile fall by the given number of positions
+	"""
 	var offset = tile_offset * Globals.SQUARE_TILE_SIZE
 	print("Move %s by %f" % [self.get_name(), offset])
 	var tween = create_tween()
@@ -152,7 +170,7 @@ func _on_fall_tween_finished():
 
 func _on_area_3d_mouse_exited() -> void:
 	"""
-	Reset hover notification
+	Resets hover notification
 	"""
 	if hover_notified:
 		tile_hovered.emit(self.grid_x, self.grid_y, Globals.Sides.NONE)

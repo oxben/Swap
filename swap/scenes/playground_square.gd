@@ -76,6 +76,7 @@ func init_tile_grid():
 			tile.tile_fall_ended.connect(_on_tile_fall_ended)
 			add_child(tile)
 
+
 func get_tile_node(x: int, y: int):
 	"""
 	Get the tile node at given position
@@ -84,6 +85,7 @@ func get_tile_node(x: int, y: int):
 	if not has_node(node_name):
 		return null
 	return self.get_node(node_name)
+
 
 func get_neighbor_tile(x: int, y: int, side: int):
 	"""
@@ -146,7 +148,7 @@ func _on_tile_hovered(x: int, y: int, side: int):
 		$Highlight.position = tile.position
 		$Highlight.rotation_degrees.y = tile_rot_y
 		$Highlight.show()
-	
+
 
 func _on_tile_clicked(x: int, y: int, side: int):
 	"""
@@ -258,6 +260,9 @@ func clear_grid():
 
 
 func avalanche():
+	"""
+	Computes tiles avalanche.
+	"""
 	print("Avalanche!")
 	var moved_tiles = []
 	for x in range(GRID_SIZE):
@@ -292,6 +297,11 @@ func avalanche():
 
 
 func _on_tile_fall_ended(_x: int, _y: int):
+	"""
+	Handles signal sent when tile fall animations ends.
+	When all expected animations have ended, clears grid and triggers another
+	avalanche if some tiles have been destroyed by clear.
+	"""
 	if wait_avalanche_end > 0:
 		wait_avalanche_end -= 1
 	if wait_avalanche_end == 0:
@@ -300,4 +310,3 @@ func _on_tile_fall_ended(_x: int, _y: int):
 		if clear_grid() > 0:
 			await get_tree().create_timer(0.5).timeout
 			avalanche()
-			pass

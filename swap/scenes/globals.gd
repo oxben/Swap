@@ -12,3 +12,8 @@ enum Colors { COLOR_1, COLOR_2, COLOR_3, COLOR_4 }
 
 # Square tile size
 const SQUARE_TILE_SIZE = 0.1
+
+ # Game options
+var options = {
+	color_count = 4
+}
