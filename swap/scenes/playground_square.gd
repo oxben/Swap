@@ -124,10 +124,6 @@ func _on_tile_hovered(x: int, y: int, side: int):
 		return
 	if side == Globals.Sides.NONE:
 		$Highlight.hide()
-		for tile in highlighted_tiles:
-			pass
-		var tile = self.get_tile_node(x, y)
-		tile.highlight(false)
 		return
 
 	var neigh = self.get_neighbor_tile(x, y, side)
@@ -136,10 +132,7 @@ func _on_tile_hovered(x: int, y: int, side: int):
 	print("Highlight [%d, %d] and [%d, %d]" % [x, y, neigh.x, neigh.y])
 	var tile = self.get_tile_node(x, y)
 	var neigh_tile = self.get_tile_node(neigh.x, neigh.y)
-	if tile:
-		tile.highlight(true)
-	if neigh_tile:
-		neigh_tile.highlight(true)
+	if tile and neigh_tile:
 		var tile_rot_y = 0.0
 		match side:
 			Globals.Sides.TOP:

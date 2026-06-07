@@ -45,16 +45,6 @@ func set_material(mat: StandardMaterial3D):
 	$Pivot/MeshInstance3D/tile_square_big/TileSquareBig.set_surface_override_material(0, mat)
 
 
-func highlight(enabled: bool):
-	"""
-	Highlight the tile
-	"""
-	if enabled:
-		pass
-	else:
-		pass
-
-
 func fix_side(side: int) -> int:
 	match side:
 		Side.TOP:
