@@ -81,7 +81,8 @@ func show_message(message: String):
 
 
 func update_score():
-	$PanelControls/Score.text = "%d pts / %d clicks" % [stats.score, stats.tiles_clicked]
+	$PanelScore/EditScore.text = "%d" % [stats.score]
+	$PanelScore/EditClicks.text = "%d" % [stats.tiles_clicked]
 
 
 func _on_tile_clicked():

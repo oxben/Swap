@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://caqahdf3pllxg" path="res://scenes/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://c6wjapux4vi08" path="res://scenes/playground_square.tscn" id="1_o5qli"]
 [ext_resource type="LabelSettings" uid="uid://ddtdql1luue8y" path="res://assets/ui/title_label_settings.tres" id="3_sugp2"]
+[ext_resource type="LabelSettings" uid="uid://cntcvhe0hmawc" path="res://assets/ui/score_label_settings.tres" id="4_jyhfs"]
 
 [node name="Main" type="Node3D" unique_id=1447419065]
 script = ExtResource("1_0wfyh")
@@ -12,10 +13,21 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.6,
 projection = 1
 size = 1.3
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=114211885]
+[node name="OmniLightMain" type="OmniLight3D" parent="." unique_id=114211885]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 1, 0.6)
+light_energy = 0.5
 
-[node name="PlaygroundSquare" parent="." unique_id=567022727 instance=ExtResource("1_o5qli")]
+[node name="OmniLightBlue" type="OmniLight3D" parent="." unique_id=750050617]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95000005, 0.5, -0.19999999)
+light_color = Color(6.7383053e-06, 0.6717831, 0.8664277, 1)
+light_energy = 0.5
+
+[node name="OmniLightOrange" type="OmniLight3D" parent="." unique_id=1065758797]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0999999, 0.5, -0.14999987)
+light_color = Color(0.94355476, 0.4503005, 9.62615e-07, 1)
+light_energy = 0.5
+
+[node name="PlaygroundSquare" parent="." unique_id=538029405 instance=ExtResource("1_o5qli")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
 
 [node name="PanelTitle" type="Panel" parent="." unique_id=1057081484]
@@ -35,29 +47,74 @@ label_settings = ExtResource("3_sugp2")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PanelControls" type="Panel" parent="." unique_id=1447637587]
+[node name="PanelScore" type="Panel" parent="." unique_id=1447637587]
 offset_left = 648.0
 offset_top = 128.0
 offset_right = 1144.0
-offset_bottom = 400.0
+offset_bottom = 208.0
 
-[node name="ButtonAvalanche" type="Button" parent="PanelControls" unique_id=787424420]
+[node name="LabelScore" type="Label" parent="PanelScore" unique_id=191069227]
 layout_mode = 0
 offset_left = 16.0
-offset_top = 80.0
-offset_right = 144.0
-offset_bottom = 111.0
+offset_top = 16.0
+offset_right = 101.0
+offset_bottom = 61.0
+text = "Score"
+label_settings = ExtResource("4_jyhfs")
+vertical_alignment = 1
+
+[node name="EditScore" type="LineEdit" parent="PanelScore" unique_id=1118356342]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 24.0
+offset_right = 208.0
+offset_bottom = 56.0
+text = "0"
+alignment = 1
+
+[node name="LabelClicks" type="Label" parent="PanelScore" unique_id=712901075]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 16.0
+offset_right = 373.0
+offset_bottom = 61.0
+text = "Tile Flips"
+label_settings = ExtResource("4_jyhfs")
+vertical_alignment = 1
+
+[node name="EditClicks" type="LineEdit" parent="PanelScore" unique_id=1819191146]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 24.0
+offset_right = 480.0
+offset_bottom = 56.0
+text = "0"
+alignment = 1
+
+[node name="ButtonAvalanche" type="Button" parent="PanelScore" unique_id=787424420]
+layout_mode = 0
+offset_top = 88.0
+offset_right = 208.0
+offset_bottom = 119.0
 text = "Avalanche"
 
-[node name="ButtonRestart" type="Button" parent="PanelControls" unique_id=446870877]
+[node name="ButtonConfigure" type="Button" parent="PanelScore" unique_id=661511866]
 layout_mode = 0
-offset_left = 232.0
-offset_top = 480.0
-offset_right = 360.0
-offset_bottom = 511.0
+offset_left = 368.0
+offset_top = 400.0
+offset_right = 496.0
+offset_bottom = 431.0
+text = "Configure"
+
+[node name="ButtonRestart" type="Button" parent="PanelScore" unique_id=446870877]
+layout_mode = 0
+offset_left = 368.0
+offset_top = 440.0
+offset_right = 496.0
+offset_bottom = 471.0
 text = "Restart Level"
 
-[node name="ButtonQuit" type="Button" parent="PanelControls" unique_id=387612053]
+[node name="ButtonQuit" type="Button" parent="PanelScore" unique_id=387612053]
 layout_mode = 0
 offset_left = 368.0
 offset_top = 480.0
@@ -65,19 +122,11 @@ offset_right = 496.0
 offset_bottom = 511.0
 text = "Quit Game"
 
-[node name="Score" type="LineEdit" parent="PanelControls" unique_id=1118356342]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 480.0
-offset_bottom = 47.0
-alignment = 1
-
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=1658878266]
 
 [node name="AcceptDialog" type="AcceptDialog" parent="." unique_id=348880569]
 title = "Info"
 
-[connection signal="pressed" from="PanelControls/ButtonAvalanche" to="." method="_on_button_avalanche_pressed"]
-[connection signal="pressed" from="PanelControls/ButtonRestart" to="." method="_on_button_restart_pressed"]
-[connection signal="pressed" from="PanelControls/ButtonQuit" to="." method="_on_button_quit_pressed"]
+[connection signal="pressed" from="PanelScore/ButtonAvalanche" to="." method="_on_button_avalanche_pressed"]
+[connection signal="pressed" from="PanelScore/ButtonRestart" to="." method="_on_button_restart_pressed"]
+[connection signal="pressed" from="PanelScore/ButtonQuit" to="." method="_on_button_quit_pressed"]
