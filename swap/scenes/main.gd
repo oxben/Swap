@@ -20,7 +20,18 @@ func _unhandled_input(ev):
 	elif ev.is_action_released("Avalanche"):
 		stats.avalanche_triggered += 1
 		$PlaygroundSquare.avalanche()
+	elif ev.is_action_released("RestartGame"):
+		start_game()
 
+
+func start_game():
+	reset_stats()
+	$PlaygroundSquare.reset_board()
+
+
+func reset_stats():
+	for key in stats:
+		stats[key] = 0
 
 func _on_tile_clicked():
 	"""

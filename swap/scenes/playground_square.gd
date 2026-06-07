@@ -2,7 +2,9 @@ extends Node3D
 
 const GRID_SIZE = 12
 
-# The tile grid
+# The tile grid organized as [row][column]
+# Rows are stored from top to bottom, ie. top row is 0
+# Columns are stored from left to right
 var  tile_grid: Array[Array] = []
 
 # Material associated with each tile color.
@@ -21,6 +23,21 @@ signal tile_clicked
 
 
 func _ready():
+	reset_board()
+
+
+func reset_board():
+	# Free previous tiles if needed
+	for y in tile_grid.size():
+		for x in tile_grid[y].size():
+			if tile_grid[y][x] != -1:
+				tile_grid[y][x] = -1
+				var tile = self.get_tile_node(x, y)
+				if tile:
+					# Tile must be renamed because queue_free() is asyncronous
+					# and the tile name will be re-used by init_tile_grid()
+					tile.name += "_freed"
+					tile.queue_free()
 	$Highlight.hide()
 	init_tile_colors()
 	init_tile_grid()
@@ -30,9 +47,9 @@ func init_tile_colors():
 	"""
 	Initialize the color for the tiles
 	"""
-	color_materials.resize(Globals.Colors.size())
+	color_materials.resize(Globals.options.color_count)
 	var base_material := preload("res://assets/textures/tile_material.tres")
-	for i in range(Globals.Colors.size()):
+	for i in range(Globals.options.color_count):
 		#var color = Color(randfn(0.0, 1.0), randfn(0.0, 1.0), randfn(0.0, 1.0))
 		var color = Color(randf_range(0.3, 1.0), randf_range(0.3, 1.0), randf_range(0.3, 1.0))
 		var material := base_material.duplicate() as StandardMaterial3D
@@ -50,7 +67,7 @@ func init_tile_grid():
 		tile_grid[y].resize(GRID_SIZE)
 		for x in range(GRID_SIZE):
 			var colors = []
-			for i in range(Globals.Colors.size()):
+			for i in range(Globals.options.color_count):
 				colors.append(i)
 			# Remove left neighbor color
 			if x > 0:
@@ -58,7 +75,6 @@ func init_tile_grid():
 			# Remove top neighbor color
 			if y > 0:
 				colors.erase(tile_grid[y-1][x])
-			#var color = randi() % Globals.Colors.size()
 			var color = colors.pick_random()
 			tile_grid[y][x] = color
 			# Instantiate one tile per position and set its material
