@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://dv165xvmd7qxs"]
+
+[ext_resource type="Script" uid="uid://dy3ktwa0u3v2a" path="res://scenes/tile_reserve_square.gd" id="1_50re8"]
+[ext_resource type="PackedScene" uid="uid://cg5bg7go74rpl" path="res://assets/playgrounds/tile_reserve_square.gltf" id="1_e8h8y"]
+[ext_resource type="PackedScene" uid="uid://b7hhppo4of1vl" path="res://scenes/high_light_square_reserve.tscn" id="3_w0kho"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_50re8"]
+size = Vector3(0.1, 0.02, 0.1)
+
+[node name="TileReserveSquare" type="Node3D" unique_id=321506612]
+script = ExtResource("1_50re8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1244582851]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0, 0.2)
+
+[node name="tile_reserve_square" parent="MeshInstance3D" unique_id=417404078 instance=ExtResource("1_e8h8y")]
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1190697647]
+
+[node name="CollisionShape_0_0" type="CollisionShape3D" parent="Area3D" unique_id=236076426]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.049999997, -1.6763806e-08, 0.049999997)
+shape = SubResource("BoxShape3D_50re8")
+
+[node name="CollisionShape_1_0" type="CollisionShape3D" parent="Area3D" unique_id=1510094117]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, -1.6763806e-08, 0.049999997)
+shape = SubResource("BoxShape3D_50re8")
+
+[node name="CollisionShape_2_0" type="CollisionShape3D" parent="Area3D" unique_id=88741396]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -1.6763806e-08, 0.049999997)
+shape = SubResource("BoxShape3D_50re8")
+
+[node name="CollisionShape_0_1" type="CollisionShape3D" parent="Area3D" unique_id=47156676]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.049999997, -1.6763806e-08, 0.15)
+shape = SubResource("BoxShape3D_50re8")
+
+[node name="CollisionShape_1_1" type="CollisionShape3D" parent="Area3D" unique_id=336268134]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, -1.6763806e-08, 0.15)
+shape = SubResource("BoxShape3D_50re8")
+
+[node name="CollisionShape_2_1" type="CollisionShape3D" parent="Area3D" unique_id=644337398]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -1.6763806e-08, 0.15)
+shape = SubResource("BoxShape3D_50re8")
+
+[node name="CollisionShape_0_2" type="CollisionShape3D" parent="Area3D" unique_id=1547485279]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.049999997, -1.6763806e-08, 0.25)
+shape = SubResource("BoxShape3D_50re8")
+
+[node name="CollisionShape_1_2" type="CollisionShape3D" parent="Area3D" unique_id=396050922]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, -1.6763806e-08, 0.25)
+shape = SubResource("BoxShape3D_50re8")
+
+[node name="CollisionShape_2_2" type="CollisionShape3D" parent="Area3D" unique_id=216896784]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -1.6763806e-08, 0.25)
+shape = SubResource("BoxShape3D_50re8")
+
+[node name="CollisionShape_0_3" type="CollisionShape3D" parent="Area3D" unique_id=394524563]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.049999997, -1.6763806e-08, 0.35)
+shape = SubResource("BoxShape3D_50re8")
+
+[node name="CollisionShape_1_3" type="CollisionShape3D" parent="Area3D" unique_id=1256703326]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, -1.6763806e-08, 0.35)
+shape = SubResource("BoxShape3D_50re8")
+
+[node name="CollisionShape_2_3" type="CollisionShape3D" parent="Area3D" unique_id=34076025]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -1.6763806e-08, 0.35)
+shape = SubResource("BoxShape3D_50re8")
+
+[node name="Highlight" parent="." unique_id=2022541536 instance=ExtResource("3_w0kho")]
+
+[connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]

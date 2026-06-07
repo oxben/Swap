@@ -7,9 +7,6 @@ const GRID_SIZE = 12
 # Columns are stored from left to right
 var  tile_grid: Array[Array] = []
 
-# Material associated with each tile color.
-var color_materials: Array = []
-
 # List of tiles currently highlighted
 var highlighted_tiles = []
 
@@ -18,6 +15,8 @@ var wait_flip_end = 0
 # Are we waiting for a avalanche animations to end ?
 var wait_avalanche_end = 0
 
+var current_selected_reserve_color = -1
+
 # Signal sent when a tile is clicked (used by stats)
 signal tile_clicked
 # Signal sent when tiles are destroyed
@@ -25,7 +24,7 @@ signal tile_destroyed
 
 
 func _ready():
-	reset_board()
+	pass
 
 
 func reset_board():
@@ -41,22 +40,7 @@ func reset_board():
 					tile.name += "_freed"
 					tile.queue_free()
 	$Highlight.hide()
-	init_tile_colors()
 	init_tile_grid()
-
-
-func init_tile_colors():
-	"""
-	Initialize the color for the tiles
-	"""
-	color_materials.resize(Globals.options.color_count)
-	var base_material := preload("res://assets/textures/tile_material.tres")
-	for i in range(Globals.options.color_count):
-		#var color = Color(randfn(0.0, 1.0), randfn(0.0, 1.0), randfn(0.0, 1.0))
-		var color = Color(randf_range(0.3, 1.0), randf_range(0.3, 1.0), randf_range(0.3, 1.0))
-		var material := base_material.duplicate() as StandardMaterial3D
-		material.albedo_color = color
-		color_materials[i] = material
 
 
 func init_tile_grid():
@@ -78,21 +62,34 @@ func init_tile_grid():
 			if y > 0:
 				colors.erase(tile_grid[y-1][x])
 			var color = colors.pick_random()
-			tile_grid[y][x] = color
 			# Instantiate one tile per position and set its material
-			var tile_scene = preload("res://scenes/tile_square.tscn")
-			var tile = tile_scene.instantiate()
-			tile.name = "Tile_%d_%d" % [ x, y]
-			print(tile.name)
-			tile.position.x = x * Globals.SQUARE_TILE_SIZE + Globals.SQUARE_TILE_SIZE*0.5
-			tile.position.z = y * Globals.SQUARE_TILE_SIZE + Globals.SQUARE_TILE_SIZE*0.5
-			tile.set_material(color_materials[color])
-			tile.set_grid_pos(x, y)
-			tile.tile_hovered.connect(_on_tile_hovered)
-			tile.tile_clicked.connect(_on_tile_clicked)
-			tile.tile_flipped.connect(_on_tile_flipped)
-			tile.tile_fall_ended.connect(_on_tile_fall_ended)
-			add_child(tile)
+			tile_grid[y][x] = -1
+			self.add_tile(x, y, color)
+
+
+func add_tile(x: int, y: int, color: int) -> bool:
+	"""
+	Add a tile node to the board at the given position with given the color.
+	Returns true if the tile has been added, false otherwise.
+	"""
+	# Check the position is not used
+	if tile_grid[y][x] != -1:
+		print("There is already a tile on grid at [%d, %d]" % [x, y])
+		return false
+	tile_grid[y][x] = color
+	var tile_scene = preload("res://scenes/tile_square.tscn")
+	var tile = tile_scene.instantiate()
+	tile.name = "Tile_%d_%d" % [ x, y]
+	tile.position.x = x * Globals.SQUARE_TILE_SIZE + Globals.SQUARE_TILE_SIZE*0.5
+	tile.position.z = y * Globals.SQUARE_TILE_SIZE + Globals.SQUARE_TILE_SIZE*0.5
+	tile.set_material(Globals.color_materials[color])
+	tile.set_grid_pos(x, y)
+	tile.tile_hovered.connect(_on_tile_hovered)
+	tile.tile_clicked.connect(_on_tile_clicked)
+	tile.tile_flipped.connect(_on_tile_flipped)
+	tile.tile_fall_ended.connect(_on_tile_fall_ended)
+	add_child(tile)
+	return true
 
 
 func get_tile_node(x: int, y: int):
@@ -174,6 +171,10 @@ func _on_tile_clicked(x: int, y: int, side: int):
 	"""
 	if wait_flip_end > 0:
 		print("Still flipping tiles. Skip")
+		return
+	if current_selected_reserve_color != -1:
+		print("Reserve selected. Skip")
+		return
 	tile_clicked.emit()
 	var tile_name = "Tile_%d_%d" % [ x, y]
 	print("%s flipped on side %d" % [tile_name, side])
@@ -326,3 +327,14 @@ func _on_tile_fall_ended(_x: int, _y: int):
 		if clear_grid() > 0:
 			await get_tree().create_timer(0.5).timeout
 			avalanche()
+
+func _on_reserve_tile_picked(color_index: int):
+	# @FIXME must find a better way to managed reserve
+	current_selected_reserve_color = color_index
+	pass
+	
+
+func _on_reserve_tile_unpicked():
+	# @FIXME must find a better way to managed reserve
+	current_selected_reserve_color = -1
+	pass

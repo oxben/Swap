@@ -3,13 +3,16 @@ extends Node3D
 # Statistics
 var stats = {
 	"score": 0,
-	"tile_clicked": 0,
+	"tiles_clicked": 0,
 	"avalanche_triggered": 0
 }
 
 func _ready() -> void:
 	$PlaygroundSquare.tile_clicked.connect(_on_tile_clicked)
 	$PlaygroundSquare.tile_destroyed.connect(_on_tile_destroyed)
+	$TileReserveSquare.reserve_tile_picked.connect(_on_reserve_tile_picked)
+	$TileReserveSquare.reserve_tile_unpicked.connect(_on_reserve_tile_unpicked)
+	start_game()
 
 
 func _unhandled_input(ev):
@@ -27,16 +30,31 @@ func _unhandled_input(ev):
 
 func start_game():
 	reset_stats()
+	init_tile_colors()
 	$PlaygroundSquare.reset_board()
+	$TileReserveSquare.reset()
 
 
-func quit_game():
-	get_tree().quit()
+func init_tile_colors():
+	"""
+	Initialize the color for the tiles
+	"""
+	Globals.color_materials.resize(Globals.options.color_count)
+	var base_material := preload("res://assets/textures/tile_material.tres")
+	for i in range(Globals.options.color_count):
+		var color = Color(randf_range(0.3, 1.0), randf_range(0.3, 1.0), randf_range(0.3, 1.0))
+		var material := base_material.duplicate() as StandardMaterial3D
+		material.albedo_color = color
+		Globals.color_materials[i] = material
 
 
 func reset_stats():
 	for key in stats:
 		stats[key] = 0
+
+
+func quit_game():
+	get_tree().quit()
 
 
 func ask_confirmation(message: String, function: Callable):
@@ -54,11 +72,16 @@ func ask_confirmation(message: String, function: Callable):
 	dialog.popup_centered()
 
 
+func update_score():
+	$PanelControls/Score.text = "%d pts / %d clicks" % [stats.score, stats.tiles_clicked]
+
+
 func _on_tile_clicked():
 	"""
 	Handles signal sent when tiles are clicked
 	"""
-	stats.tile_clicked += 1
+	stats.tiles_clicked += 1
+	self.update_score()
 
 
 func _on_tile_destroyed(count: int):
@@ -69,8 +92,7 @@ func _on_tile_destroyed(count: int):
 	stats.score += count * count
 	# smooth scaling without exploding too fast.
 	# stats.score = int(count * (count + 1) / 2) - 1
-	# print("%d tiles -> %d pts" % [count, stats.score])
-	$PanelControls/Score.text = "%d pts" % [stats.score]
+	self.update_score()
 
 
 func _on_button_avalanche_pressed() -> void:
@@ -85,8 +107,7 @@ func _on_button_restart_pressed() -> void:
 	"""
 	Handles click on Restart button
 	"""
-	if stats.tile_clicked > 0:
-		var dialog = $ConfirmationDialog
+	if stats.tiles_clicked > 0:
 		ask_confirmation("Are you sure you want to restart this level?", start_game)
 	else:
 		start_game()
@@ -97,3 +118,12 @@ func _on_button_quit_pressed() -> void:
 	Handles click on Quit button
 	"""
 	ask_confirmation("Are you sure you want to restart this level?", quit_game)
+
+
+func _on_reserve_tile_picked(color_index: int):
+	$PlaygroundSquare._on_reserve_tile_picked(color_index)
+	
+
+func _on_reserve_tile_unpicked():
+	$PlaygroundSquare._on_reserve_tile_unpicked()
+	
