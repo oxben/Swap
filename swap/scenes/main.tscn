@@ -2,6 +2,16 @@
 
 [ext_resource type="Script" uid="uid://caqahdf3pllxg" path="res://scenes/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://c6wjapux4vi08" path="res://scenes/playground_square.tscn" id="1_o5qli"]
+[ext_resource type="LabelSettings" uid="uid://ddtdql1luue8y" path="res://assets/ui/title_label_settings.tres" id="3_sugp2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jyhfs"]
+font_size = 72
+font_color = Color(0.46622962, 0.60862476, 1, 1)
+outline_size = 13
+outline_color = Color(0.2208, 0.28032, 0.32, 1)
+shadow_size = 12
+shadow_color = Color(0, 0, 0, 0.5019608)
+shadow_offset = Vector2(4, 4)
 
 [node name="Main" type="Node3D" unique_id=1447419065]
 script = ExtResource("1_0wfyh")
@@ -17,38 +27,74 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 [node name="PlaygroundSquare" parent="." unique_id=567022727 instance=ExtResource("1_o5qli")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
 
-[node name="Panel" type="Panel" parent="." unique_id=1447637587]
+[node name="PanelTitle" type="Panel" parent="." unique_id=1057081484]
 offset_left = 648.0
 offset_top = 8.0
 offset_right = 1144.0
+offset_bottom = 120.0
+
+[node name="LabelTitle" type="Label" parent="PanelTitle" unique_id=1803269112]
+layout_mode = 0
+offset_left = 184.0
+offset_top = 8.0
+offset_right = 368.0
+offset_bottom = 107.0
+text = "WAP"
+label_settings = ExtResource("3_sugp2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelTitle2" type="Label" parent="PanelTitle" unique_id=646046490]
+layout_mode = 0
+offset_left = 131.0
+offset_top = 8.0
+offset_right = 211.0
+offset_bottom = 107.0
+text = "S"
+label_settings = SubResource("LabelSettings_jyhfs")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelControls" type="Panel" parent="." unique_id=1447637587]
+offset_left = 648.0
+offset_top = 128.0
+offset_right = 1144.0
 offset_bottom = 640.0
 
-[node name="ButtonAvalanche" type="Button" parent="Panel" unique_id=787424420]
+[node name="ButtonAvalanche" type="Button" parent="PanelControls" unique_id=787424420]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 80.0
+offset_right = 144.0
+offset_bottom = 111.0
+text = "Avalanche"
+
+[node name="ButtonRestart" type="Button" parent="PanelControls" unique_id=446870877]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 464.0
+offset_right = 344.0
+offset_bottom = 495.0
+text = "Restart Level"
+
+[node name="ButtonQuit" type="Button" parent="PanelControls" unique_id=387612053]
+layout_mode = 0
+offset_left = 352.0
+offset_top = 464.0
+offset_right = 480.0
+offset_bottom = 495.0
+text = "Quit Game"
+
+[node name="Score" type="LineEdit" parent="PanelControls" unique_id=1118356342]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 144.0
 offset_bottom = 47.0
-text = "Avalanche"
-
-[node name="ButtonRestart" type="Button" parent="Panel" unique_id=446870877]
-layout_mode = 0
-offset_left = 216.0
-offset_top = 584.0
-offset_right = 344.0
-offset_bottom = 615.0
-text = "Restart Level"
-
-[node name="ButtonQuit" type="Button" parent="Panel" unique_id=387612053]
-layout_mode = 0
-offset_left = 352.0
-offset_top = 584.0
-offset_right = 480.0
-offset_bottom = 615.0
-text = "Quit Game"
+alignment = 2
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=1658878266]
 
-[connection signal="pressed" from="Panel/ButtonAvalanche" to="." method="_on_button_avalanche_pressed"]
-[connection signal="pressed" from="Panel/ButtonRestart" to="." method="_on_button_restart_pressed"]
-[connection signal="pressed" from="Panel/ButtonQuit" to="." method="_on_button_quit_pressed"]
+[connection signal="pressed" from="PanelControls/ButtonAvalanche" to="." method="_on_button_avalanche_pressed"]
+[connection signal="pressed" from="PanelControls/ButtonRestart" to="." method="_on_button_restart_pressed"]
+[connection signal="pressed" from="PanelControls/ButtonQuit" to="." method="_on_button_quit_pressed"]

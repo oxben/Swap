@@ -9,6 +9,7 @@ var stats = {
 
 func _ready() -> void:
 	$PlaygroundSquare.tile_clicked.connect(_on_tile_clicked)
+	$PlaygroundSquare.tile_destroyed.connect(_on_tile_destroyed)
 
 
 func _unhandled_input(ev):
@@ -69,6 +70,7 @@ func _on_tile_destroyed(count: int):
 	# smooth scaling without exploding too fast.
 	# stats.score = int(count * (count + 1) / 2) - 1
 	# print("%d tiles -> %d pts" % [count, stats.score])
+	$PanelControls/Score.text = "%d pts" % [stats.score]
 
 
 func _on_button_avalanche_pressed() -> void:

@@ -20,6 +20,8 @@ var wait_avalanche_end = 0
 
 # Signal sent when a tile is clicked (used by stats)
 signal tile_clicked
+# Signal sent when tiles are destroyed
+signal tile_destroyed
 
 
 func _ready():
@@ -269,6 +271,7 @@ func clear_grid():
 			tile_grid[t.y][t.x] = -1
 			tile.queue_free()
 			count += 1
+	tile_destroyed.emit(count)
 	return count
 
 
