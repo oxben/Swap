@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://c6wjapux4vi08"]
+
+[ext_resource type="PackedScene" uid="uid://bhc7h0rmlax7" path="res://assets/playgrounds/playground_square.gltf" id="1_16t4r"]
+[ext_resource type="Script" uid="uid://cgpooh6lrhs43" path="res://scenes/playground_square.gd" id="2_3gotc"]
+
+[node name="PlaygroundSquare" unique_id=567022727 instance=ExtResource("1_16t4r")]
+script = ExtResource("2_3gotc")
+
+[node name="PlaygroundSquare" parent="." index="0" unique_id=1267873969]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, 0.6)

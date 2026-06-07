@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://dwugs4mugyqro"]
+
+[ext_resource type="PackedScene" uid="uid://bav5pdhf4r1wy" path="res://assets/tiles/tile_square_big.gltf" id="1_p1rrq"]
+[ext_resource type="Script" uid="uid://bad21olcu0i3u" path="res://scenes/tile_square.gd" id="2_dmu4f"]
+[ext_resource type="Shape3D" uid="uid://cobyihce4y4p7" path="res://assets/tiles/tile_square_collision_shape.tres" id="3_qud6r"]
+[ext_resource type="Material" uid="uid://0oqlsc8ln4lw" path="res://assets/textures/tile_blue.tres" id="3_sauhm"]
+
+[node name="TileSquareBig" unique_id=1632046723 instance=ExtResource("1_p1rrq")]
+script = ExtResource("2_dmu4f")
+
+[node name="TileSquareBig" parent="." index="0" unique_id=69588957]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, -0.01, 0.05)
+surface_material_override/0 = ExtResource("3_sauhm")
+
+[node name="Area3D" type="Area3D" parent="." index="1" unique_id=419039974]
+
+[node name="CollisionShapeTop" type="CollisionShape3D" parent="Area3D" index="0" unique_id=383097048]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.1, 0, 0)
+shape = ExtResource("3_qud6r")
+
+[node name="CollisionShapeRight" type="CollisionShape3D" parent="Area3D" index="1" unique_id=2065326379]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.1, 0, 0.1)
+shape = ExtResource("3_qud6r")
+
+[node name="CollisionShapeBottom" type="CollisionShape3D" parent="Area3D" index="2" unique_id=1891725634]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, 0, 0, 0.1)
+shape = ExtResource("3_qud6r")
+
+[node name="CollisionShapeLeft" type="CollisionShape3D" parent="Area3D" index="3" unique_id=1750380715]
+shape = ExtResource("3_qud6r")
+
+[node name="Pivot" type="Node3D" parent="." index="2" unique_id=143929814]
+
+[connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://vh01q42iq121"]
+
+[ext_resource type="PackedScene" uid="uid://cc6laty8vk5a" path="res://assets/tiles/highlight_square.gltf" id="1_6r8y4"]
+[ext_resource type="Material" uid="uid://qevmv0bys14f" path="res://assets/textures/highlight.tres" id="2_0h737"]
+
+[node name="HighlightSquare" unique_id=2039453257 instance=ExtResource("1_6r8y4")]
+
+[node name="HighlightSquare" parent="." index="0" unique_id=1138100824]
+surface_material_override/0 = ExtResource("2_0h737")
