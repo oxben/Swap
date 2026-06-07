@@ -3,16 +3,6 @@
 [ext_resource type="Script" uid="uid://caqahdf3pllxg" path="res://scenes/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://c6wjapux4vi08" path="res://scenes/playground_square.tscn" id="1_o5qli"]
 [ext_resource type="LabelSettings" uid="uid://ddtdql1luue8y" path="res://assets/ui/title_label_settings.tres" id="3_sugp2"]
-[ext_resource type="PackedScene" uid="uid://dv165xvmd7qxs" path="res://scenes/tile_reserve_square.tscn" id="4_jyhfs"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_jyhfs"]
-font_size = 72
-font_color = Color(0.46622962, 0.60862476, 1, 1)
-outline_size = 13
-outline_color = Color(0.2208, 0.28032, 0.32, 1)
-shadow_size = 12
-shadow_color = Color(0, 0, 0, 0.5019608)
-shadow_offset = Vector2(4, 4)
 
 [node name="Main" type="Node3D" unique_id=1447419065]
 script = ExtResource("1_0wfyh")
@@ -23,13 +13,10 @@ projection = 1
 size = 1.3
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=114211885]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 1, 0.6)
 
 [node name="PlaygroundSquare" parent="." unique_id=567022727 instance=ExtResource("1_o5qli")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
-
-[node name="TileReserveSquare" parent="." unique_id=321506612 instance=ExtResource("4_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.79999995, 0, 0.8)
 
 [node name="PanelTitle" type="Panel" parent="." unique_id=1057081484]
 offset_left = 648.0
@@ -39,23 +26,12 @@ offset_bottom = 120.0
 
 [node name="LabelTitle" type="Label" parent="PanelTitle" unique_id=1803269112]
 layout_mode = 0
-offset_left = 184.0
-offset_top = 8.0
-offset_right = 368.0
-offset_bottom = 107.0
-text = "WAP"
+offset_left = 144.0
+offset_top = 5.0
+offset_right = 344.0
+offset_bottom = 104.0
+text = "SWAP"
 label_settings = ExtResource("3_sugp2")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="LabelTitle2" type="Label" parent="PanelTitle" unique_id=646046490]
-layout_mode = 0
-offset_left = 131.0
-offset_top = 8.0
-offset_right = 211.0
-offset_bottom = 107.0
-text = "S"
-label_settings = SubResource("LabelSettings_jyhfs")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -98,6 +74,9 @@ offset_bottom = 47.0
 alignment = 1
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=1658878266]
+
+[node name="AcceptDialog" type="AcceptDialog" parent="." unique_id=348880569]
+title = "Info"
 
 [connection signal="pressed" from="PanelControls/ButtonAvalanche" to="." method="_on_button_avalanche_pressed"]
 [connection signal="pressed" from="PanelControls/ButtonRestart" to="." method="_on_button_restart_pressed"]

@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bhc7h0rmlax7" path="res://assets/playgrounds/playground_square.gltf" id="1_16t4r"]
 [ext_resource type="Script" uid="uid://cgpooh6lrhs43" path="res://scenes/playground_square.gd" id="2_3gotc"]
 [ext_resource type="PackedScene" uid="uid://cc6laty8vk5a" path="res://assets/tiles/highlight_square.gltf" id="3_3gotc"]
+[ext_resource type="PackedScene" uid="uid://dv165xvmd7qxs" path="res://scenes/tile_reserve_square.tscn" id="4_12oao"]
 
 [node name="PlaygroundSquare" unique_id=567022727 instance=ExtResource("1_16t4r")]
 script = ExtResource("2_3gotc")
@@ -11,3 +12,6 @@ script = ExtResource("2_3gotc")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, 0.6)
 
 [node name="Highlight" parent="." index="1" unique_id=2049328599 instance=ExtResource("3_3gotc")]
+
+[node name="TileReserve" parent="." index="2" unique_id=321506612 instance=ExtResource("4_12oao")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3000001, 0, 0.8)

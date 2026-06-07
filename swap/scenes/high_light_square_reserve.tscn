@@ -1,5 +1,0 @@
-[gd_scene format=3 uid="uid://b7hhppo4of1vl"]
-
-[ext_resource type="PackedScene" uid="uid://d0wrupyjvr26u" path="res://assets/tiles/highlight_square_reserve.gltf" id="1_6i5eq"]
-
-[node name="HighLightSquareReserve" unique_id=2022541536 instance=ExtResource("1_6i5eq")]

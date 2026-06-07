@@ -25,6 +25,7 @@ func _ready() -> void:
 func reset():
 	print("Reset reserve")
 	# Free previous tiles if needed
+	picked_tile = null
 	for y in tiles.size():
 		for x in tiles[y].size():
 			if tiles[y][x] != -1:
@@ -102,6 +103,10 @@ func pick_tile(x, y):
 	print("Pick tile [%d, %d]" % [x, y])
 	var tile = self.get_tile_node(x, y)
 	if tile:
+		if picked_tile == tile:
+			# Kinda toggle button
+			self.unpick_tile()
+			return
 		picked_tile = tile
 		$Highlight.position = tile.position
 		$Highlight.show()
@@ -112,3 +117,10 @@ func unpick_tile():
 	picked_tile = null
 	$Highlight.hide()
 	reserve_tile_unpicked.emit()
+	
+
+func consume_tile():
+	if picked_tile:
+		picked_tile.queue_free()
+	picked_tile = null
+	$Highlight.hide()

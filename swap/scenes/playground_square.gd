@@ -24,7 +24,8 @@ signal tile_destroyed
 
 
 func _ready():
-	pass
+	$TileReserve.reserve_tile_picked.connect(_on_reserve_tile_picked)
+	$TileReserve.reserve_tile_unpicked.connect(_on_reserve_tile_unpicked)
 
 
 func reset_board():
@@ -40,7 +41,10 @@ func reset_board():
 					tile.name += "_freed"
 					tile.queue_free()
 	$Highlight.hide()
+	wait_flip_end = 0
+	wait_avalanche_end = 0
 	init_tile_grid()
+	$TileReserve.reset()
 
 
 func init_tile_grid():
@@ -172,9 +176,6 @@ func _on_tile_clicked(x: int, y: int, side: int):
 	if wait_flip_end > 0:
 		print("Still flipping tiles. Skip")
 		return
-	if current_selected_reserve_color != -1:
-		print("Reserve selected. Skip")
-		return
 	tile_clicked.emit()
 	var tile_name = "Tile_%d_%d" % [ x, y]
 	print("%s flipped on side %d" % [tile_name, side])
@@ -209,6 +210,11 @@ func _on_tile_clicked(x: int, y: int, side: int):
 		var neigh_tile = self.get_node(neigh_tile_name)
 		if not neigh_tile:
 			# No tile found. Probably a hole on this side.
+			# @FIXME this should be done somewhere else
+			if current_selected_reserve_color != -1:
+				$TileReserve.consume_tile()
+				self.add_tile(neigh_x, neigh_y, current_selected_reserve_color)
+				self.clear_grid()
 			return
 		# Flip tiles
 		wait_flip_end = 2
@@ -268,7 +274,7 @@ func clear_grid():
 		# Destroy tile node and update tile grid
 		var tile_name = "Tile_%d_%d" % [t.x, t.y]
 		var tile = self.get_node(tile_name)
-		if tile:
+		if tile and tile_grid[t.y][t.x] != -1:
 			tile_grid[t.y][t.x] = -1
 			tile.queue_free()
 			count += 1
@@ -313,6 +319,17 @@ func avalanche():
 	return moved_tiles.size()
 
 
+func is_empty():
+	"""
+	Tests if the grids is empty.
+	"""
+	for x in range(GRID_SIZE):
+		for y in range(GRID_SIZE):
+			if tile_grid[y][x] != -1:
+				return false
+	return true
+
+
 func _on_tile_fall_ended(_x: int, _y: int):
 	"""
 	Handles signal sent when tile fall animations ends.
@@ -327,6 +344,7 @@ func _on_tile_fall_ended(_x: int, _y: int):
 		if clear_grid() > 0:
 			await get_tree().create_timer(0.5).timeout
 			avalanche()
+
 
 func _on_reserve_tile_picked(color_index: int):
 	# @FIXME must find a better way to managed reserve

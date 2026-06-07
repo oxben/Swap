@@ -5,5 +5,5 @@
 
 [node name="HighlightSquare" unique_id=2039453257 instance=ExtResource("1_6r8y4")]
 
-[node name="HighlightSquare" parent="." index="0" unique_id=1138100824]
+[node name="HighlightSquare" parent="." index="0" unique_id=1491455553]
 surface_material_override/0 = ExtResource("2_0h737")

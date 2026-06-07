@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dy3ktwa0u3v2a" path="res://scenes/tile_reserve_square.gd" id="1_50re8"]
 [ext_resource type="PackedScene" uid="uid://cg5bg7go74rpl" path="res://assets/playgrounds/tile_reserve_square.gltf" id="1_e8h8y"]
-[ext_resource type="PackedScene" uid="uid://b7hhppo4of1vl" path="res://scenes/high_light_square_reserve.tscn" id="3_w0kho"]
+[ext_resource type="PackedScene" uid="uid://b7hhppo4of1vl" path="res://scenes/highlight_square_reserve.tscn" id="3_w0kho"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_50re8"]
 size = Vector3(0.1, 0.02, 0.1)

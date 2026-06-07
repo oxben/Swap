@@ -4,14 +4,13 @@ extends Node3D
 var stats = {
 	"score": 0,
 	"tiles_clicked": 0,
+	"tiles_destroyed": 0,
 	"avalanche_triggered": 0
 }
 
 func _ready() -> void:
 	$PlaygroundSquare.tile_clicked.connect(_on_tile_clicked)
 	$PlaygroundSquare.tile_destroyed.connect(_on_tile_destroyed)
-	$TileReserveSquare.reserve_tile_picked.connect(_on_reserve_tile_picked)
-	$TileReserveSquare.reserve_tile_unpicked.connect(_on_reserve_tile_unpicked)
 	start_game()
 
 
@@ -32,7 +31,6 @@ func start_game():
 	reset_stats()
 	init_tile_colors()
 	$PlaygroundSquare.reset_board()
-	$TileReserveSquare.reset()
 
 
 func init_tile_colors():
@@ -72,6 +70,16 @@ func ask_confirmation(message: String, function: Callable):
 	dialog.popup_centered()
 
 
+func show_message(message: String):
+	"""
+	Displays the confirmation dialog with the given message.
+	If the answer is yes calls the given function.
+	"""
+	var dialog = $AcceptDialog
+	dialog.dialog_text = message
+	dialog.popup_centered()
+
+
 func update_score():
 	$PanelControls/Score.text = "%d pts / %d clicks" % [stats.score, stats.tiles_clicked]
 
@@ -90,9 +98,12 @@ func _on_tile_destroyed(count: int):
 	"""
 	# Update score: exponential growth
 	stats.score += count * count
+	stats.tiles_destroyed += count
 	# smooth scaling without exploding too fast.
 	# stats.score = int(count * (count + 1) / 2) - 1
 	self.update_score()
+	if $PlaygroundSquare.is_empty():
+		self.show_message("Success!")
 
 
 func _on_button_avalanche_pressed() -> void:
@@ -117,13 +128,4 @@ func _on_button_quit_pressed() -> void:
 	"""
 	Handles click on Quit button
 	"""
-	ask_confirmation("Are you sure you want to restart this level?", quit_game)
-
-
-func _on_reserve_tile_picked(color_index: int):
-	$PlaygroundSquare._on_reserve_tile_picked(color_index)
-	
-
-func _on_reserve_tile_unpicked():
-	$PlaygroundSquare._on_reserve_tile_unpicked()
-	
+	ask_confirmation("Are you sure you want to quit the game?", quit_game)
