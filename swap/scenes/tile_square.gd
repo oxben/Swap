@@ -137,7 +137,7 @@ func flip(side: int):
 			global_transform = Transform3D(b, p),
 		0.0,
 		1.0,
-		0.2
+		0.3
 	)
 
 

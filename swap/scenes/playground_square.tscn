@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://cgpooh6lrhs43" path="res://scenes/playground_square.gd" id="2_3gotc"]
 [ext_resource type="PackedScene" uid="uid://cc6laty8vk5a" path="res://assets/tiles/highlight_square.gltf" id="3_3gotc"]
 [ext_resource type="PackedScene" uid="uid://dv165xvmd7qxs" path="res://scenes/tile_reserve_square.tscn" id="4_12oao"]
+[ext_resource type="AudioStream" uid="uid://dews0dc41c3c1" path="res://assets/sounds/tile_flip.ogg" id="5_y3lvp"]
+[ext_resource type="AudioStream" uid="uid://be482u8x50xve" path="res://assets/sounds/tile_explosion_01.ogg" id="6_njugk"]
 
 [node name="PlaygroundSquare" unique_id=567022727 instance=ExtResource("1_16t4r")]
 script = ExtResource("2_3gotc")
@@ -15,3 +17,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, 0.6)
 
 [node name="TileReserve" parent="." index="2" unique_id=321506612 instance=ExtResource("4_12oao")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3000001, 0, 0.8)
+
+[node name="AudioPlayerFlipTile" type="AudioStreamPlayer" parent="." index="3" unique_id=1858782228]
+stream = ExtResource("5_y3lvp")
+
+[node name="AudioPlayerExplosion" type="AudioStreamPlayer" parent="." index="4" unique_id=190448068]
+stream = ExtResource("6_njugk")

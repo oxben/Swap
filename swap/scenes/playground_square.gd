@@ -217,6 +217,7 @@ func _on_tile_clicked(x: int, y: int, side: int):
 				self.clear_grid()
 			return
 		# Flip tiles
+		$AudioPlayerFlipTile.play()
 		wait_flip_end = 2
 		tile.flip(side)
 		neigh_tile.flip(neigh_side)
@@ -270,6 +271,8 @@ func clear_grid():
 					destroyed_tiles.append({"x": x, "y": y})
 					destroyed_tiles.append({"x": neigh_x, "y": neigh_y})
 	var count = 0
+	if destroyed_tiles.size() > 0:
+		$AudioPlayerExplosion.play()
 	for t in destroyed_tiles:
 		# Destroy tile node and update tile grid
 		var tile_name = "Tile_%d_%d" % [t.x, t.y]
