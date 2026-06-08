@@ -1,11 +1,15 @@
 extends Node3D
 
+# Number of tiles to destroy in one flip to get a star
+const STAR_FLIP : int = 6
+
 # Statistics
 var stats = {
 	"score": 0,
 	"tiles_clicked": 0,
 	"tiles_destroyed": 0,
-	"avalanche_triggered": 0
+	"avalanche_triggered": 0,
+	"stars_won" : 0,
 }
 
 func _ready() -> void:
@@ -43,8 +47,8 @@ func init_tile_colors():
 		var color = Color(randf_range(0.3, 1.0), randf_range(0.3, 1.0), randf_range(0.3, 1.0))
 		var material := base_material.duplicate() as StandardMaterial3D
 		material.albedo_color = color
-		material.metallic = 0.5
-		material.roughness = 0.5
+		material.metallic = 0.2 #0.5
+		material.roughness = 0.5 #0.5
 		Globals.color_materials[i] = material
 
 
@@ -85,6 +89,7 @@ func show_message(message: String):
 func update_score():
 	$PanelScore/EditScore.text = "%d" % [stats.score]
 	$PanelScore/EditClicks.text = "%d" % [stats.tiles_clicked]
+	$PanelScore/PanelStars.light_stars(stats.stars_won)
 
 
 func _on_tile_clicked():
@@ -104,6 +109,8 @@ func _on_tile_destroyed(count: int):
 	stats.tiles_destroyed += count
 	# smooth scaling without exploding too fast.
 	# stats.score = int(count * (count + 1) / 2) - 1
+	if count >= STAR_FLIP:
+		stats.stars_won = min(stats.stars_won + 1, STAR_FLIP)
 	self.update_score()
 	if $PlaygroundSquare.is_empty():
 		self.show_message("Success!")

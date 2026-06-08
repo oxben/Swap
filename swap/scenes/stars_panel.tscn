@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://bydj2q725jr0f"]
+
+[ext_resource type="Script" uid="uid://c876fw12gfct6" path="res://scenes/stars_panel.gd" id="1_8ptql"]
+[ext_resource type="Texture2D" uid="uid://3orq0phn48aq" path="res://assets/ui/star_anim.svg" id="1_kofbq"]
+
+[node name="StarsPanel" type="Panel" unique_id=261354196]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -960.0
+offset_bottom = -560.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8ptql")
+
+[node name="SpriteStar_0" type="Sprite2D" parent="." unique_id=271865700]
+position = Vector2(32, 24)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_kofbq")
+hframes = 2
+
+[node name="SpriteStar_1" type="Sprite2D" parent="." unique_id=2065178882]
+position = Vector2(64, 24)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_kofbq")
+hframes = 2
+
+[node name="SpriteStar_2" type="Sprite2D" parent="." unique_id=1065652217]
+position = Vector2(96, 24)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_kofbq")
+hframes = 2
+
+[node name="SpriteStar_3" type="Sprite2D" parent="." unique_id=742907890]
+position = Vector2(128, 24)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_kofbq")
+hframes = 2
+
+[node name="SpriteStar_4" type="Sprite2D" parent="." unique_id=1936905918]
+position = Vector2(160, 24)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_kofbq")
+hframes = 2
+
+[node name="SpriteStar_5" type="Sprite2D" parent="." unique_id=105609520]
+position = Vector2(32, 64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_kofbq")
+hframes = 2
+
+[node name="SpriteStar_6" type="Sprite2D" parent="." unique_id=68768736]
+position = Vector2(64, 64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_kofbq")
+hframes = 2
+
+[node name="SpriteStar_7" type="Sprite2D" parent="." unique_id=1295525034]
+position = Vector2(96, 64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_kofbq")
+hframes = 2
+
+[node name="SpriteStar_8" type="Sprite2D" parent="." unique_id=429976530]
+position = Vector2(128, 64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_kofbq")
+hframes = 2
+
+[node name="SpriteStar_9" type="Sprite2D" parent="." unique_id=402796682]
+position = Vector2(160, 64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_kofbq")
+hframes = 2

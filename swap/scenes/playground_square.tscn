@@ -10,7 +10,7 @@
 [node name="PlaygroundSquare" unique_id=538029405 instance=ExtResource("1_16t4r")]
 script = ExtResource("2_3gotc")
 
-[node name="PlaygroundSquare" parent="." index="0" unique_id=1967776003]
+[node name="PlaygroundSquare" parent="." index="0" unique_id=234424297]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, 0.6)
 
 [node name="Highlight" parent="." index="1" unique_id=2049328599 instance=ExtResource("3_3gotc")]

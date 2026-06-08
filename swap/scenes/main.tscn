@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c6wjapux4vi08" path="res://scenes/playground_square.tscn" id="1_o5qli"]
 [ext_resource type="LabelSettings" uid="uid://ddtdql1luue8y" path="res://assets/ui/title_label_settings.tres" id="3_sugp2"]
 [ext_resource type="LabelSettings" uid="uid://cntcvhe0hmawc" path="res://assets/ui/score_label_settings.tres" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://bydj2q725jr0f" path="res://scenes/stars_panel.tscn" id="5_tbgi4"]
 
 [node name="Main" type="Node3D" unique_id=1447419065]
 script = ExtResource("1_0wfyh")
@@ -102,11 +103,17 @@ offset_bottom = 56.0
 text = "0"
 alignment = 1
 
+[node name="PanelStars" parent="PanelScore" unique_id=261354196 instance=ExtResource("5_tbgi4")]
+layout_mode = 1
+offset_top = 88.0
+offset_right = -304.0
+offset_bottom = 96.0
+
 [node name="ButtonAvalanche" type="Button" parent="PanelScore" unique_id=787424420]
 layout_mode = 0
-offset_top = 88.0
-offset_right = 208.0
-offset_bottom = 119.0
+offset_top = 184.0
+offset_right = 192.0
+offset_bottom = 215.0
 text = "Avalanche"
 
 [node name="ButtonConfigure" type="Button" parent="PanelScore" unique_id=661511866]
