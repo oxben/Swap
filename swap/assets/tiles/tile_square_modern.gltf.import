@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bhc7h0rmlax7"
-path="res://.godot/imported/playground_square.gltf-b42330fadfc70983574f47cd0baf6922.scn"
+uid="uid://dwtnijncrkra3"
+path="res://.godot/imported/tile_square_modern.gltf-a532c7f77317567c46d54ca747c7b7f3.scn"
 
 [deps]
 
-source_file="res://assets/playgrounds/playground_square.gltf"
-dest_files=["res://.godot/imported/playground_square.gltf-b42330fadfc70983574f47cd0baf6922.scn"]
+source_file="res://assets/tiles/tile_square_modern.gltf"
+dest_files=["res://.godot/imported/tile_square_modern.gltf-a532c7f77317567c46d54ca747c7b7f3.scn"]
 
 [params]
 
@@ -34,9 +34,9 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-materials/extract=2
+materials/extract=0
 materials/extract_format=0
-materials/extract_path="res://assets/textures"
+materials/extract_path=""
 _subresources={}
 gltf/naming_version=2
 gltf/embedded_image_handling=1

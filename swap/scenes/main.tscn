@@ -16,16 +16,27 @@ size = 1.3
 [node name="OmniLightMain" type="OmniLight3D" parent="." unique_id=114211885]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 1, 0.6)
 light_energy = 0.5
+shadow_enabled = true
+shadow_opacity = 0.7
+shadow_blur = 2.0
 
 [node name="OmniLightBlue" type="OmniLight3D" parent="." unique_id=750050617]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95000005, 0.5, -0.19999999)
 light_color = Color(6.7383053e-06, 0.6717831, 0.8664277, 1)
 light_energy = 0.5
+shadow_enabled = true
+shadow_bias = 0.05
+shadow_opacity = 0.7
+shadow_blur = 2.0
 
 [node name="OmniLightOrange" type="OmniLight3D" parent="." unique_id=1065758797]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0999999, 0.5, -0.14999987)
 light_color = Color(0.94355476, 0.4503005, 9.62615e-07, 1)
 light_energy = 0.5
+shadow_enabled = true
+shadow_bias = 0.05
+shadow_opacity = 0.7
+shadow_blur = 2.0
 
 [node name="PlaygroundSquare" parent="." unique_id=538029405 instance=ExtResource("1_o5qli")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)

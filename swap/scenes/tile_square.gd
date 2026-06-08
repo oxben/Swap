@@ -48,7 +48,7 @@ func set_material(mat: StandardMaterial3D):
 	Sets tile material.
 	"""
 	 # @FIXME I'd like to simplify this subtree to get the mesh directly
-	$Pivot/MeshInstance3D/tile_square_big/TileSquareBig.set_surface_override_material(0, mat)
+	$Pivot/MeshInstance3D/tile_square_modern/TileSquareModern.set_surface_override_material(0, mat)
 
 
 func fix_side(side: int) -> int:

@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dbjesuqmf106m"]
+
+[ext_resource type="Texture2D" uid="uid://duktsug60f0lm" path="res://assets/textures/metal_sheet.jpg" id="1_o5hpy"]
+[ext_resource type="Texture2D" uid="uid://diunq624imk8r" path="res://assets/textures/metal_sheet.png" id="2_3k2of"]
+
+[resource]
+resource_name = "metal_sheet"
+cull_mode = 2
+albedo_texture = ExtResource("1_o5hpy")
+metallic = 1.0
+metallic_texture = ExtResource("2_3k2of")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_3k2of")
+roughness_texture_channel = 1

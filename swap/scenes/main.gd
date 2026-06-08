@@ -43,6 +43,8 @@ func init_tile_colors():
 		var color = Color(randf_range(0.3, 1.0), randf_range(0.3, 1.0), randf_range(0.3, 1.0))
 		var material := base_material.duplicate() as StandardMaterial3D
 		material.albedo_color = color
+		material.metallic = 0.5
+		material.roughness = 0.5
 		Globals.color_materials[i] = material
 
 

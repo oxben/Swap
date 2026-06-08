@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bq8gnkg5o8cqq"]
 
-[ext_resource type="PackedScene" uid="uid://bav5pdhf4r1wy" path="res://assets/tiles/tile_square_big.gltf" id="1_1u7s0"]
 [ext_resource type="Script" uid="uid://bad21olcu0i3u" path="res://scenes/tile_square.gd" id="1_ou8nl"]
+[ext_resource type="PackedScene" uid="uid://dwtnijncrkra3" path="res://assets/tiles/tile_square_modern.gltf" id="2_3bhn1"]
 [ext_resource type="Shape3D" uid="uid://cobyihce4y4p7" path="res://assets/tiles/tile_square_collision_shape.tres" id="2_ou8nl"]
 
 [node name="TileSquare" type="Node3D" unique_id=1175335661]
@@ -11,7 +11,7 @@ script = ExtResource("1_ou8nl")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot" unique_id=1626343072]
 
-[node name="tile_square_big" parent="Pivot/MeshInstance3D" unique_id=1632046723 instance=ExtResource("1_1u7s0")]
+[node name="tile_square_modern" parent="Pivot/MeshInstance3D" unique_id=1652228621 instance=ExtResource("2_3bhn1")]
 
 [node name="Area3D" type="Area3D" parent="." unique_id=668926191]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, 0, -0.05)
