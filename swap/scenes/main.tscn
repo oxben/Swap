@@ -2,9 +2,15 @@
 
 [ext_resource type="Script" uid="uid://caqahdf3pllxg" path="res://scenes/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://c6wjapux4vi08" path="res://scenes/playground_square.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://cet6tm8ls200f" path="res://scenes/config_panel.tscn" id="3_o6xl0"]
 [ext_resource type="LabelSettings" uid="uid://ddtdql1luue8y" path="res://assets/ui/title_label_settings.tres" id="3_sugp2"]
 [ext_resource type="LabelSettings" uid="uid://cntcvhe0hmawc" path="res://assets/ui/score_label_settings.tres" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://bydj2q725jr0f" path="res://scenes/stars_panel.tscn" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://bypyb0ca87m6s" path="res://scenes/swap_title.tscn" id="6_tefeu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_o6xl0"]
+font_size = 12
+font_color = Color(0.14767182, 0.14767179, 0.14767179, 1)
 
 [node name="Main" type="Node3D" unique_id=1447419065]
 script = ExtResource("1_0wfyh")
@@ -42,7 +48,11 @@ shadow_blur = 2.0
 [node name="PlaygroundSquare" parent="." unique_id=538029405 instance=ExtResource("1_o5qli")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
 
+[node name="ConfigDialog" parent="." unique_id=1935946135 instance=ExtResource("3_o6xl0")]
+visible = false
+
 [node name="PanelTitle" type="Panel" parent="." unique_id=1057081484]
+visible = false
 offset_left = 648.0
 offset_top = 8.0
 offset_right = 1144.0
@@ -114,9 +124,11 @@ layout_mode = 0
 offset_top = 184.0
 offset_right = 192.0
 offset_bottom = 215.0
-text = "Avalanche"
+disabled = true
+text = "↓↓ Avalanche ↓↓"
 
 [node name="ButtonConfigure" type="Button" parent="PanelScore" unique_id=661511866]
+visible = false
 layout_mode = 0
 offset_left = 368.0
 offset_top = 400.0
@@ -130,7 +142,7 @@ offset_left = 368.0
 offset_top = 440.0
 offset_right = 496.0
 offset_bottom = 471.0
-text = "Restart Level"
+text = "New Game"
 
 [node name="ButtonQuit" type="Button" parent="PanelScore" unique_id=387612053]
 layout_mode = 0
@@ -138,13 +150,32 @@ offset_left = 368.0
 offset_top = 480.0
 offset_right = 496.0
 offset_bottom = 511.0
-text = "Quit Game"
+text = "Quit"
+
+[node name="VersionLabel" type="Label" parent="PanelScore" unique_id=1814872885]
+layout_mode = 0
+offset_left = 456.0
+offset_top = -16.0
+offset_right = 496.0
+offset_bottom = 7.0
+text = "v.02"
+label_settings = SubResource("LabelSettings_o6xl0")
+horizontal_alignment = 2
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=1658878266]
 
 [node name="AcceptDialog" type="AcceptDialog" parent="." unique_id=348880569]
 title = "Info"
 
+[node name="Title" parent="." unique_id=1297940359 instance=ExtResource("6_tefeu")]
+transform = Transform3D(0.25218242, 0, 0, 0, 0.5, 0, 0, 0, 0.25218242, 1.2401133, 0, 0.08391355)
+
+[node name="SpotLightTitle" type="SpotLight3D" parent="Title" unique_id=392830482]
+transform = Transform3D(3.9653835, 0, 0, 0, -8.742278e-08, 2, 0, -3.9653835, -1.7333242e-07, 0.052286148, 0.8049343, 0.073981225)
+light_energy = 0.5
+spot_range = 1.0
+
 [connection signal="pressed" from="PanelScore/ButtonAvalanche" to="." method="_on_button_avalanche_pressed"]
+[connection signal="pressed" from="PanelScore/ButtonConfigure" to="." method="_on_button_configure_pressed"]
 [connection signal="pressed" from="PanelScore/ButtonRestart" to="." method="_on_button_restart_pressed"]
 [connection signal="pressed" from="PanelScore/ButtonQuit" to="." method="_on_button_quit_pressed"]

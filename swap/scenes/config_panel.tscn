@@ -1,0 +1,145 @@
+[gd_scene format=3 uid="uid://cet6tm8ls200f"]
+
+[ext_resource type="LabelSettings" uid="uid://cntcvhe0hmawc" path="res://assets/ui/score_label_settings.tres" id="1_68ggw"]
+[ext_resource type="Script" uid="uid://qn4yjv6br51u" path="res://scenes/config_panel.gd" id="1_bnox7"]
+
+[node name="ConfigPanel" type="Window" unique_id=1390387934]
+oversampling_override = 1.0
+position = Vector2i(0, 36)
+size = Vector2i(384, 270)
+script = ExtResource("1_bnox7")
+
+[node name="Panel" type="Panel" parent="." unique_id=966884436]
+offset_right = 384.0
+offset_bottom = 268.0
+
+[node name="ConfigurationLabel" type="Label" parent="Panel" unique_id=616946402]
+layout_mode = 0
+offset_right = 384.0
+offset_bottom = 45.0
+text = "New Game"
+label_settings = ExtResource("1_68ggw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorCountLabel" type="Label" parent="Panel" unique_id=551008458]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 60.0
+offset_right = 95.0
+offset_bottom = 92.0
+tooltip_text = "Number of tile colors."
+text = "Tile colors"
+vertical_alignment = 1
+
+[node name="ColorCountSlider" type="HSlider" parent="Panel" unique_id=396508142]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 60.0
+offset_right = 232.0
+offset_bottom = 92.0
+min_value = 2.0
+max_value = 6.0
+value = 3.0
+rounded = true
+tick_count = 5
+ticks_on_borders = true
+ticks_position = 3
+
+[node name="ColorCountEdit" type="LineEdit" parent="Panel" unique_id=2060279133]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 60.0
+offset_right = 308.5
+offset_bottom = 91.0
+text = "3"
+alignment = 1
+editable = false
+
+[node name="AvalancheLabel" type="Label" parent="Panel" unique_id=1240106709]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 108.0
+offset_right = 100.0
+offset_bottom = 140.0
+tooltip_text = "Enable/disable the tile avalanche."
+text = "Avalanche "
+vertical_alignment = 1
+
+[node name="AvalancheCheckButton" type="CheckButton" parent="Panel" unique_id=1870873086]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 108.0
+offset_right = 156.0
+offset_bottom = 140.0
+button_pressed = true
+
+[node name="AvalancheLimitLabel" type="Label" parent="Panel" unique_id=242811344]
+layout_mode = 0
+offset_left = 184.0
+offset_top = 108.0
+offset_right = 232.0
+offset_bottom = 140.0
+tooltip_text = "Number of avalanches allowed (-1 for infinite number)."
+text = "Limit"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="AvalancheLimitSpinBox" type="SpinBox" parent="Panel" unique_id=1225114142]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 108.0
+offset_right = 326.5
+offset_bottom = 139.0
+min_value = -1.0
+value = -1.0
+rounded = true
+alignment = 1
+
+[node name="TileReserveLabel" type="Label" parent="Panel" unique_id=498479086]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 140.0
+offset_right = 106.0
+offset_bottom = 172.0
+tooltip_text = "Enable/disable the tile avalanche."
+text = "Tile reserve"
+vertical_alignment = 1
+
+[node name="TileReserveCheckButton" type="CheckButton" parent="Panel" unique_id=1054518101]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 140.0
+offset_right = 156.0
+offset_bottom = 172.0
+button_pressed = true
+
+[node name="ButtonReset" type="Button" parent="Panel" unique_id=429750455]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 220.0
+offset_right = 96.0
+offset_bottom = 251.0
+text = "Reset"
+
+[node name="ButtonOK" type="Button" parent="Panel" unique_id=414142060]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 220.0
+offset_right = 272.0
+offset_bottom = 251.0
+text = "Play"
+
+[node name="ButtonCancel" type="Button" parent="Panel" unique_id=1110925601]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 220.0
+offset_right = 368.0
+offset_bottom = 251.0
+text = "Cancel"
+
+[connection signal="about_to_popup" from="." to="." method="_on_about_to_popup"]
+[connection signal="value_changed" from="Panel/ColorCountSlider" to="." method="_on_color_count_slider_value_changed"]
+[connection signal="pressed" from="Panel/ButtonReset" to="." method="_on_button_reset_pressed"]
+[connection signal="pressed" from="Panel/ButtonOK" to="." method="_on_button_ok_pressed"]
+[connection signal="pressed" from="Panel/ButtonCancel" to="." method="_on_button_cancel_pressed"]

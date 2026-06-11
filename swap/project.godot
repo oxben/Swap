@@ -50,3 +50,4 @@ RestartGame={
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+anti_aliasing/quality/screen_space_aa=1

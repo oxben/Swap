@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bypyb0ca87m6s"]
+
+[ext_resource type="Script" uid="uid://dkyujot6odsge" path="res://scenes/swap_title.gd" id="1_qjdlp"]
+[ext_resource type="ArrayMesh" uid="uid://w2syk1adlasx" path="res://assets/ui/mesh_swap_logo.tres" id="2_nh0ov"]
+
+[node name="SwapTitle" type="Node3D" unique_id=1297940359]
+script = ExtResource("1_qjdlp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2104667354]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.38, 0, 0.01)
+mesh = ExtResource("2_nh0ov")

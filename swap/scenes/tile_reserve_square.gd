@@ -36,7 +36,9 @@ func reset():
 					# and the tile name will be re-used by init_tile_grid()
 					tile.name += "_freed"
 					tile.queue_free()
-	self.fill()
+	$Highlight.hide()
+	if Globals.options.tile_reserve_enabled:
+		self.fill()
 	
 
 func fill():

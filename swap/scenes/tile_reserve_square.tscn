@@ -66,5 +66,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.019999983, 0.35)
 shape = SubResource("BoxShape3D_50re8")
 
 [node name="Highlight" parent="." unique_id=2022541536 instance=ExtResource("3_w0kho")]
+visible = false
 
 [connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]

@@ -1,0 +1,66 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://c4cwjvuyet5jt"
+path="res://.godot/imported/swap_logo.gltf-6220ffb908a28a0a38715fbfe93664b4.scn"
+
+[deps]
+
+source_file="res://assets/ui/swap_logo.gltf"
+dest_files=["res://.godot/imported/swap_logo.gltf-6220ffb908a28a0a38715fbfe93664b4.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/root_script=null
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
+nodes/use_name_suffixes=true
+nodes/use_node_type_suffixes=true
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
+import_script/path=""
+materials/extract=2
+materials/extract_format=0
+materials/extract_path="res://assets/textures"
+_subresources={
+"materials": {
+"SwapLogo": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/textures/SwapLogo.tres",
+"use_external/path": "uid://ckwfnhewyej2x"
+},
+"SwapLogoBorder": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/textures/SwapLogoBorder.tres",
+"use_external/path": "uid://cdbdd228t8pxf"
+}
+},
+"meshes": {
+"swap_logo_SwapLogo": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://assets/ui/mesh_swap_logo.tres",
+"save_to_file/path": "uid://w2syk1adlasx"
+}
+}
+}
+gltf/naming_version=2
+gltf/embedded_image_handling=1
