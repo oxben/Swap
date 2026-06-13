@@ -127,6 +127,14 @@ offset_bottom = 215.0
 disabled = true
 text = "↓↓ Avalanche ↓↓"
 
+[node name="ButtonUndo" type="Button" parent="PanelScore" unique_id=1491244403]
+layout_mode = 0
+offset_top = 224.0
+offset_right = 192.0
+offset_bottom = 255.0
+disabled = true
+text = "↩ Undo ↩"
+
 [node name="ButtonConfigure" type="Button" parent="PanelScore" unique_id=661511866]
 visible = false
 layout_mode = 0
@@ -176,6 +184,7 @@ light_energy = 0.5
 spot_range = 1.0
 
 [connection signal="pressed" from="PanelScore/ButtonAvalanche" to="." method="_on_button_avalanche_pressed"]
+[connection signal="pressed" from="PanelScore/ButtonUndo" to="." method="_on_button_undo_pressed"]
 [connection signal="pressed" from="PanelScore/ButtonConfigure" to="." method="_on_button_configure_pressed"]
 [connection signal="pressed" from="PanelScore/ButtonRestart" to="." method="_on_button_restart_pressed"]
 [connection signal="pressed" from="PanelScore/ButtonQuit" to="." method="_on_button_quit_pressed"]

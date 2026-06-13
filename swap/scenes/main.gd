@@ -14,6 +14,10 @@ var stats = {
 	"stars_won" : 0,
 }
 
+# Saved states for the game. Used for undo mechanism.
+var game_states: Array = []
+
+
 func _ready() -> void:
 	$PanelScore/VersionLabel.text = "v.%03d" % [Globals.version]
 	$PlaygroundSquare.tile_clicked.connect(_on_tile_clicked)
@@ -30,14 +34,16 @@ func _unhandled_input(ev):
 		quit_game()
 	elif ev.is_action_released("Avalanche"):
 		trigger_avalanche()
-
-
 	elif ev.is_action_released("RestartGame"):
 		start_game()
+	elif ev.is_action_released("Undo"):
+		restore_state()
 
 
 func start_game():
 	$PanelScore/ButtonAvalanche.disabled = not Globals.options.avalanche_enabled
+	game_states.clear()
+	$PanelScore/ButtonUndo.disabled = true
 	reset_stats()
 	init_tile_colors()
 	$PlaygroundSquare.reset_board()
@@ -118,10 +124,31 @@ func update_score():
 	$PanelScore/PanelStars.light_stars(stats.stars_won)
 
 
+func save_state():
+	var state = {}
+	state["tile_grid"] = $PlaygroundSquare.save_state()
+	state["tile_reserve"] = $PlaygroundSquare/TileReserve.save_state()
+	state["stats"] = stats.duplicate()
+	game_states.append(state)
+	$PanelScore/ButtonUndo.disabled = false
+
+
+func restore_state():
+	var saved_state = game_states.pop_back()
+	if saved_state:
+		$PlaygroundSquare.restore_state(saved_state["tile_grid"])
+		$PlaygroundSquare/TileReserve.restore_state(saved_state["tile_reserve"])
+		stats = saved_state["stats"]
+		update_score()
+	if game_states.size() == 0:
+		$PanelScore/ButtonUndo.disabled = true
+
+
 func _on_tile_clicked():
 	"""
 	Handles signal sent when tiles are clicked
 	"""
+	save_state()
 	stats.tiles_clicked += 1
 	self.update_score()
 
@@ -180,3 +207,7 @@ func _on_new_game_configured() -> void:
 	Handles the signal emitted by game config dialog when OK/Play is pressed
 	"""
 	self.start_game()
+
+
+func _on_button_undo_pressed() -> void:
+	restore_state()

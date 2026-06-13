@@ -28,8 +28,10 @@ func _ready():
 	$TileReserve.reserve_tile_unpicked.connect(_on_reserve_tile_unpicked)
 
 
-func reset_board():
-	# Free previous tiles if needed
+func empty_board():
+	"""
+	Remove all tiles from the board.
+	"""
 	for y in tile_grid.size():
 		for x in tile_grid[y].size():
 			if tile_grid[y][x] != -1:
@@ -40,6 +42,11 @@ func reset_board():
 					# and the tile name will be re-used by init_tile_grid()
 					tile.name += "_freed"
 					tile.queue_free()
+
+
+func reset_board():
+	# Free previous tiles if needed
+	empty_board()
 	$Highlight.hide()
 	wait_flip_end = 0
 	wait_avalanche_end = 0
@@ -134,6 +141,31 @@ func get_neighbor_tile(x: int, y: int, side: int):
 		or neigh_y < 0 or neigh_y > GRID_SIZE:
 			return null
 	return { "x": neigh_x, "y": neigh_y, "side": neigh_side }
+
+
+func save_state() -> Array[Array]:
+	"""
+	Make a copy of the tile grid and return it
+	"""
+	var saved_tile_grid: Array[Array] = []
+	saved_tile_grid.resize(tile_grid.size())
+	for i in tile_grid.size():
+		saved_tile_grid[i] = tile_grid[i].duplicate()
+	return saved_tile_grid
+
+
+func restore_state(saved_tile_grid: Array[Array]):
+	"""
+	Restore tile grid
+	"""
+	empty_board()
+	tile_grid = saved_tile_grid
+	for y in range(GRID_SIZE):
+		for x in range(GRID_SIZE):
+			var color_idx = tile_grid[y][x]
+			tile_grid[y][x] = -1
+			if color_idx != -1:
+				self.add_tile(x, y, color_idx)
 
 
 func _on_tile_hovered(x: int, y: int, side: int):

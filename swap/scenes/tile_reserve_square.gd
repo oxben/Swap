@@ -14,7 +14,7 @@ var picked_tile = null
 
 # Signal sent when a tile is picked in the reserve
 signal reserve_tile_picked
-# Signal sent when the tile picked is canceled 
+# Signal sent when the tile picked is canceled
 signal reserve_tile_unpicked
 
 
@@ -22,10 +22,10 @@ func _ready() -> void:
 	$Highlight.hide()
 
 
-func reset():
-	print("Reset reserve")
-	# Free previous tiles if needed
-	picked_tile = null
+func empty():
+	"""
+	Empty the tile reserve.
+	"""
 	for y in tiles.size():
 		for x in tiles[y].size():
 			if tiles[y][x] != -1:
@@ -36,10 +36,17 @@ func reset():
 					# and the tile name will be re-used by init_tile_grid()
 					tile.name += "_freed"
 					tile.queue_free()
+
+
+func reset():
+	print("Reset reserve")
+	# Free previous tiles if needed
+	picked_tile = null
+	self.empty()
 	$Highlight.hide()
 	if Globals.options.tile_reserve_enabled:
 		self.fill()
-	
+
 
 func fill():
 	"""Fill tile reserve. """
@@ -83,6 +90,31 @@ func get_tile_node(x: int, y: int):
 	return self.get_node(node_name)
 
 
+func save_state() -> Array[Array]:
+	"""
+	Make a copy of the tile reserve and return it
+	"""
+	var saved_tiles: Array[Array] = []
+	saved_tiles.resize(tiles.size())
+	for i in tiles.size():
+		saved_tiles[i] = tiles[i].duplicate()
+	return saved_tiles
+
+
+func restore_state(saved_tiles: Array[Array]):
+	"""
+	Restore tile reserve
+	"""
+	self.empty()
+	tiles = saved_tiles
+	for y in range(RESERVE_HEIGHT):
+		for x in range(RESERVE_WIDTH):
+			var color_idx = tiles[y][x]
+			tiles[y][x] = -1
+			if color_idx != -1:
+				self.add_tile(x, y, color_idx)
+
+
 func _on_area_3d_input_event(_camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
@@ -119,7 +151,7 @@ func unpick_tile():
 	picked_tile = null
 	$Highlight.hide()
 	reserve_tile_unpicked.emit()
-	
+
 
 func consume_tile():
 	if picked_tile:
