@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c876fw12gfct6" path="res://scenes/stars_panel.gd" id="1_8ptql"]
 [ext_resource type="Texture2D" uid="uid://3orq0phn48aq" path="res://assets/ui/star_anim.svg" id="1_kofbq"]
+[ext_resource type="AudioStream" uid="uid://c1ojoowxbifp3" path="res://assets/sounds/new_star.ogg" id="3_j42w6"]
 
 [node name="StarsPanel" type="Panel" unique_id=261354196]
 anchors_preset = 15
@@ -72,3 +73,7 @@ position = Vector2(160, 64)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_kofbq")
 hframes = 2
+
+[node name="AudioPlayerNewStar" type="AudioStreamPlayer" parent="." unique_id=686727312]
+stream = ExtResource("3_j42w6")
+volume_db = -15.0

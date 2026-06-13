@@ -23,6 +23,7 @@ func _ready() -> void:
 	$PlaygroundSquare.tile_clicked.connect(_on_tile_clicked)
 	$PlaygroundSquare.tile_destroyed.connect(_on_tile_destroyed)
 	$ConfigDialog.configuration_applied.connect(_on_new_game_configured)
+	$SuccessPanel.visible = false
 	start_game()
 
 
@@ -43,6 +44,7 @@ func _unhandled_input(ev):
 
 
 func start_game():
+	$SuccessPanel.visible = false
 	$PanelScore/ButtonAvalanche.disabled = not Globals.options.avalanche_enabled
 	game_states.clear()
 	$PanelScore/ButtonUndo.disabled = true
@@ -176,7 +178,10 @@ func _on_tile_destroyed(count: int):
 		stats.stars_won = min(stats.stars_won + 1, MAX_STARS)
 	self.update_score()
 	if $PlaygroundSquare.is_empty():
-		self.show_message("Success!")
+		#self.show_message("Success!")
+		$SuccessPanel.visible = true
+		$AudioPlayerSuccess.play()
+		$PlaygroundSquare.celebrate_success()
 
 
 func _on_button_avalanche_pressed() -> void:

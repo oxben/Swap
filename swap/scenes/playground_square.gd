@@ -168,6 +168,19 @@ func restore_state(saved_tile_grid: Array[Array]):
 				self.add_tile(x, y, color_idx)
 
 
+func celebrate_success():
+	if not is_empty():
+		return
+
+	for y in range(GRID_SIZE):
+		for x in range(GRID_SIZE):
+			if randf() < 0.25:
+				var color = randi_range(0, Globals.options.color_count-1)
+				add_tile(x, y, color)
+				var tile = get_tile_node(x, y)
+				destroy_tile(tile, color, 1.5)
+
+
 func _on_tile_hovered(x: int, y: int, side: int):
 	"""
 	Handle for hovered signal. Display highlight around tiles
@@ -318,7 +331,7 @@ func clear_grid():
 	return count
 
 
-func destroy_tile(tile, tile_color):
+func destroy_tile(tile, tile_color, explosion_lifetime=0.0):
 	"""
 	Remove tile from scene and and add explosion
 	"""
@@ -327,6 +340,7 @@ func destroy_tile(tile, tile_color):
 	var explosion = explosion_scene.instantiate()
 	explosion.position = tile.position + Vector3(0, 0.02, 0)
 	explosion.color_mat = Globals.color_materials[tile_color]
+	explosion.lifetime = explosion_lifetime
 	add_child(explosion)
 
 

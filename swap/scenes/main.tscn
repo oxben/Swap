@@ -7,10 +7,20 @@
 [ext_resource type="LabelSettings" uid="uid://cntcvhe0hmawc" path="res://assets/ui/score_label_settings.tres" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://bydj2q725jr0f" path="res://scenes/stars_panel.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://bypyb0ca87m6s" path="res://scenes/swap_title.tscn" id="6_tefeu"]
+[ext_resource type="AudioStream" uid="uid://yb6x54wod120" path="res://assets/sounds/success.ogg" id="8_tipki"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_o6xl0"]
 font_size = 12
 font_color = Color(0.14767182, 0.14767179, 0.14767179, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_tipki"]
+font_size = 32
+font_color = Color(1, 0.8509804, 0, 1)
+outline_size = 6
+outline_color = Color(0.80903864, 0.5088226, 0, 1)
+shadow_size = 12
+shadow_color = Color(0, 0, 0, 0.5019608)
+shadow_offset = Vector2(4, 4)
 
 [node name="Main" type="Node3D" unique_id=1447419065]
 script = ExtResource("1_0wfyh")
@@ -91,6 +101,7 @@ offset_left = 112.0
 offset_top = 24.0
 offset_right = 208.0
 offset_bottom = 56.0
+theme_override_font_sizes/font_size = 20
 text = "0"
 alignment = 1
 
@@ -110,6 +121,7 @@ offset_left = 384.0
 offset_top = 24.0
 offset_right = 480.0
 offset_bottom = 56.0
+theme_override_font_sizes/font_size = 20
 text = "0"
 alignment = 1
 
@@ -169,6 +181,25 @@ text = "v.02"
 label_settings = SubResource("LabelSettings_o6xl0")
 horizontal_alignment = 2
 
+[node name="SuccessPanel" type="Panel" parent="." unique_id=1647385504]
+offset_left = 192.0
+offset_top = 224.0
+offset_right = 448.0
+offset_bottom = 416.0
+
+[node name="SuccessLabel" type="Label" parent="SuccessPanel" unique_id=2135294787]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 248.0
+offset_bottom = 184.0
+text = "★★★
+SUCCESS
+★★★"
+label_settings = SubResource("LabelSettings_tipki")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=1658878266]
 
 [node name="AcceptDialog" type="AcceptDialog" parent="." unique_id=348880569]
@@ -181,6 +212,10 @@ transform = Transform3D(0.25218242, 0, 0, 0, 0.5, 0, 0, 0, 0.25218242, 1.2401133
 transform = Transform3D(3.9653835, 0, 0, 0, -8.742278e-08, 2, 0, -3.9653835, -1.7333242e-07, 0.052286148, 0.8049343, 0.073981225)
 light_energy = 0.5
 spot_range = 1.0
+
+[node name="AudioPlayerSuccess" type="AudioStreamPlayer" parent="." unique_id=995376325]
+stream = ExtResource("8_tipki")
+volume_db = -10.0
 
 [connection signal="pressed" from="PanelScore/ButtonAvalanche" to="." method="_on_button_avalanche_pressed"]
 [connection signal="pressed" from="PanelScore/ButtonUndo" to="." method="_on_button_undo_pressed"]
