@@ -38,6 +38,8 @@ func _unhandled_input(ev):
 		start_game()
 	elif ev.is_action_released("Undo"):
 		restore_state()
+	elif ev.is_action_released("ChangeColors"):
+		init_tile_colors(false)
 
 
 func start_game():
@@ -56,15 +58,22 @@ func configure_new_game():
 	$ConfigDialog.popup_centered()
 
 
-func init_tile_colors():
+func init_tile_colors(new_materials: bool = true):
 	"""
 	Initialize the color for the tiles
 	"""
-	Globals.color_materials.resize(Globals.options.color_count)
-	var base_material := preload("res://assets/textures/tile_material.tres")
+	if Globals.color_materials.size() != Globals.options.color_count:
+		Globals.color_materials.resize(Globals.options.color_count)
+	# Instantiate new materials if needed
+	if new_materials:
+		for i in range(Globals.options.color_count):
+			var base_material := preload("res://assets/textures/tile_material.tres")
+			var material := base_material.duplicate() as StandardMaterial3D
+			Globals.color_materials[i] = material
+	# Set material properties
 	for i in range(Globals.options.color_count):
 		var color = Color(randf_range(0.3, 1.0), randf_range(0.3, 1.0), randf_range(0.3, 1.0))
-		var material := base_material.duplicate() as StandardMaterial3D
+		var material = Globals.color_materials[i]
 		material.albedo_color = color
 		material.metallic = 0.2 #0.5
 		material.roughness = 0.5 #0.5
@@ -192,7 +201,6 @@ func _on_button_quit_pressed() -> void:
 	Handles click on Quit button
 	"""
 	ask_confirmation("Are you sure you want to quit the game?", quit_game)
-	
 
 
 func _on_button_configure_pressed() -> void:
@@ -210,4 +218,14 @@ func _on_new_game_configured() -> void:
 
 
 func _on_button_undo_pressed() -> void:
+	"""
+	Handles click on Undo button
+	"""
 	restore_state()
+
+
+func _on_button_change_colors_pressed() -> void:
+	"""
+	Handles click on Change Colors button
+	"""
+	init_tile_colors(false)

@@ -12,6 +12,7 @@ func flip():
 	tween.tween_property(self, "rotation_degrees:z", -360, 1.5)
 	is_flipping = true
 
+
 func _on_rotation_tween_finished():
 	is_flipping = false
 	rotation_degrees.z = 0.0

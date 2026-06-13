@@ -135,14 +135,13 @@ offset_bottom = 255.0
 disabled = true
 text = "↩ Undo ↩"
 
-[node name="ButtonConfigure" type="Button" parent="PanelScore" unique_id=661511866]
-visible = false
+[node name="ButtonChangeColors" type="Button" parent="PanelScore" unique_id=661511866]
 layout_mode = 0
 offset_left = 368.0
 offset_top = 400.0
 offset_right = 496.0
 offset_bottom = 431.0
-text = "Configure"
+text = "Change Colors"
 
 [node name="ButtonRestart" type="Button" parent="PanelScore" unique_id=446870877]
 layout_mode = 0
@@ -185,6 +184,6 @@ spot_range = 1.0
 
 [connection signal="pressed" from="PanelScore/ButtonAvalanche" to="." method="_on_button_avalanche_pressed"]
 [connection signal="pressed" from="PanelScore/ButtonUndo" to="." method="_on_button_undo_pressed"]
-[connection signal="pressed" from="PanelScore/ButtonConfigure" to="." method="_on_button_configure_pressed"]
+[connection signal="pressed" from="PanelScore/ButtonChangeColors" to="." method="_on_button_change_colors_pressed"]
 [connection signal="pressed" from="PanelScore/ButtonRestart" to="." method="_on_button_restart_pressed"]
 [connection signal="pressed" from="PanelScore/ButtonQuit" to="." method="_on_button_quit_pressed"]
