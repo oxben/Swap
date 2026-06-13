@@ -5,7 +5,7 @@ extends Node
 #
 
 # Release version
-const version = 2
+const version = 3
 
 # Square tile sides
 enum Sides { TOP = 0, RIGHT = 1, BOTTOM = 2, LEFT = 3, NONE=99}

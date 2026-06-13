@@ -3,6 +3,12 @@
 [resource]
 resource_name = "SwapLogoBorder"
 cull_mode = 2
-albedo_color = Color(0.9063318, 0.9063318, 0.9063318, 1)
-metallic = 1.0
-roughness = 0.35
+albedo_color = Color(0.8776157, 0.8776158, 0.8776157, 1)
+metallic = 0.61
+roughness = 0.79
+rim_enabled = true
+rim = 0.73
+backlight = Color(0.8047426, 0.80474263, 0.8047426, 1)
+stencil_flags = 2
+stencil_color = Color(0.38170326, 0.38170323, 0.38170323, 1)
+stencil_outline_thickness = 0.02

@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c3xg4bn4jyraw"]
+
+[ext_resource type="Texture2D" uid="uid://duktsug60f0lm" path="res://assets/textures/metal_sheet.jpg" id="1_jcokr"]
+[ext_resource type="Texture2D" uid="uid://diunq624imk8r" path="res://assets/textures/metal_sheet.png" id="2_0psh6"]
+
+[resource]
+albedo_texture = ExtResource("1_jcokr")
+metallic = 0.83
+roughness = 0.5
+roughness_texture = ExtResource("2_0psh6")
+emission = Color(0.2159017, 0.21590173, 0.2159017, 1)
+disable_receive_shadows = true
