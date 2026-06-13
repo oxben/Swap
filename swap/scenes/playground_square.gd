@@ -277,12 +277,25 @@ func clear_grid():
 		# Destroy tile node and update tile grid
 		var tile_name = "Tile_%d_%d" % [t.x, t.y]
 		var tile = self.get_node(tile_name)
-		if tile and tile_grid[t.y][t.x] != -1:
+		var tile_color = tile_grid[t.y][t.x]
+		if tile and tile_color != -1:
 			tile_grid[t.y][t.x] = -1
-			tile.queue_free()
+			destroy_tile(tile, tile_color)
 			count += 1
 	tile_destroyed.emit(count)
 	return count
+
+
+func destroy_tile(tile, tile_color):
+	"""
+	Remove tile from scene and and add explosion
+	"""
+	tile.queue_free()
+	var explosion_scene = preload("res://scenes/tile_explosion.tscn")
+	var explosion = explosion_scene.instantiate()
+	explosion.position = tile.position + Vector3(0, 0.02, 0)
+	explosion.color_mat = Globals.color_materials[tile_color]
+	add_child(explosion)
 
 
 func avalanche():

@@ -4,5 +4,4 @@
 resource_name = "SwapLogo"
 cull_mode = 2
 albedo_color = Color(0.10752512, 0.5744895, 0.60523117, 1)
-metallic = 1.0
 roughness = 0.5

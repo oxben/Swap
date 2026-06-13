@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://dr20nymfuxrk3"]
+
+[ext_resource type="Script" uid="uid://vj63m4k0vcld" path="res://scenes/tile_explosion.gd" id="1_2fjlu"]
+
+[sub_resource type="Curve" id="Curve_krask"]
+_data = [Vector2(0, 1), 0.0, -0.18011692, 0, 0, Vector2(1, 0), -3.242107, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_o28sq"]
+curve = SubResource("Curve_krask")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uxphf"]
+lifetime_randomness = 0.3
+particle_flag_rotate_y = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 0.0
+emission_ring_radius = 0.05
+emission_ring_inner_radius = 0.02
+emission_ring_cone_angle = 90.0
+angle_min = 1.0728835e-05
+angle_max = 90.000015
+direction = Vector3(0, 1, 0)
+spread = 0.0
+radial_velocity_min = 0.19997764
+radial_velocity_max = 0.29997763
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_o28sq")
+color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_krask"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_2fjlu"]
+material = SubResource("StandardMaterial3D_krask")
+size = Vector2(0.02, 0.02)
+orientation = 1
+
+[node name="TileExplosion" type="Node3D" unique_id=1208464234]
+script = ExtResource("1_2fjlu")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=151505314]
+emitting = false
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_uxphf")
+draw_pass_1 = SubResource("QuadMesh_2fjlu")
+
+[connection signal="finished" from="GPUParticles3D" to="." method="_on_gpu_particles_3d_finished"]
