@@ -1,16 +1,22 @@
+
 # Swap
 
-A tribute to Microid's Swap game from the 90's.
+A tribute to Microid's Swap game from the 90's _...I still think it should have been Immortal._
 
-_...I still think it should have been Immortal._
 
 ![swap Screenshot](swap/icon.png "Swap")
+
+
 
  Made with Godot Engine (https://godotengine.org/).
 
 ## Authors
 
 Oxben <oxben@free.fr>
+
+## Screenshot
+
+![swap Screenshot](swap/assets/textures/swap.jpg "Swap")
 
 ## Source tree
 
