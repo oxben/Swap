@@ -1,8 +1,8 @@
 # Swap
 
-A tribute to Microid's Sawp game from the 90's.
+A tribute to Microid's Swap game from the 90's.
 
-...I still thinks it should have been Immortal.
+_...I still think it should have been Immortal._
 
 ![swap Screenshot](swap/icon.png "Swap")
 
