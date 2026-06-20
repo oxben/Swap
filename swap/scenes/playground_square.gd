@@ -412,7 +412,7 @@ func _on_reserve_tile_picked(color_index: int):
 	# @FIXME must find a better way to managed reserve
 	current_selected_reserve_color = color_index
 	pass
-	
+
 
 func _on_reserve_tile_unpicked():
 	# @FIXME must find a better way to managed reserve

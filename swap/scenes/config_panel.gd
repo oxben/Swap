@@ -16,7 +16,7 @@ func _on_about_to_popup() -> void:
 	$Panel/ButtonOK.grab_focus()
 
 
-func _on_button_reset_pressed() -> void:	
+func _on_button_reset_pressed() -> void:
 	"""
 	Reset controls to default option values
 	"""
