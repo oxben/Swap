@@ -21,6 +21,8 @@ var current_selected_reserve_color = -1
 signal tile_clicked
 # Signal sent when tiles are destroyed
 signal tile_destroyed
+# Signal sent when avalanche has completed
+signal avalanche_completed
 
 
 func _ready():
@@ -292,6 +294,7 @@ func _on_tile_flipped(_x: int, _y: int):
 func clear_grid():
 	"""
 	Check if tiles with similar color are neighbors and destroyed them if this is the case
+	Return the number of tiles destroyed.
 	"""
 	print("Clear grid !")
 	var destroyed_tiles = []
@@ -406,6 +409,8 @@ func _on_tile_fall_ended(_x: int, _y: int):
 		if clear_grid() > 0:
 			await get_tree().create_timer(0.5).timeout
 			avalanche()
+		else:
+			avalanche_completed.emit()
 
 
 func _on_reserve_tile_picked(color_index: int):

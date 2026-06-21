@@ -14,6 +14,8 @@ var stats = {
 	"stars_won" : 0,
 }
 
+var avalanche_in_progress : bool = false
+
 # Saved states for the game. Used for undo mechanism.
 var game_states: Array = []
 
@@ -23,6 +25,7 @@ func _ready() -> void:
 	$PanelScore/VersionLabel.text = "v.%03d" % [Globals.version]
 	$PlaygroundSquare.tile_clicked.connect(_on_tile_clicked)
 	$PlaygroundSquare.tile_destroyed.connect(_on_tile_destroyed)
+	$PlaygroundSquare.avalanche_completed.connect(_on_avalanche_completed)
 	$ConfigDialog.configuration_applied.connect(_on_new_game_configured)
 	$SuccessPanel.visible = false
 	Globals.load_high_scores()
@@ -101,6 +104,7 @@ func quit_game():
 func trigger_avalanche():
 	if Globals.options.avalanche_count == -1 \
 		or stats.avalanche_triggered <= Globals.options.avalanche_count:
+			self.avalanche_in_progress = true
 			var moved_tiles = $PlaygroundSquare.avalanche()
 			if moved_tiles > 1:
 				stats.avalanche_triggered += 1
@@ -175,6 +179,11 @@ func _on_tile_destroyed(count: int):
 	"""
 	Handles signal sent when tiles are destroyed
 	"""
+	if self.avalanche_in_progress:
+		# Don't increase score with tiles destroyed by avalanche.
+		# Only check success
+		self.check_success()
+		return
 	# Update score: exponential growth
 	stats.score += count * count
 	stats.tiles_destroyed += count
@@ -185,6 +194,13 @@ func _on_tile_destroyed(count: int):
 		stats.stars_won = min(stats.stars_won + 1, MAX_STARS)
 	self.update_score()
 	self.check_success()
+
+
+func _on_avalanche_completed() -> void:
+	"""
+	Handles signal sent when avalanche is completed
+	"""
+	self.avalanche_in_progress = false
 
 
 func check_success() -> void:
@@ -206,6 +222,7 @@ func handle_new_highscore() -> void:
 	Called when the user beats a previous high score
 	"""
 	$AudioPlayerSuccess.play()
+	$SuccessPanel/NewHighScorePanel/NameLineEdit.text = ""
 	$SuccessPanel/NewHighScorePanel.visible = true
 	$PlaygroundSquare.celebrate_success()
 
@@ -275,5 +292,6 @@ func _on_new_high_score_ok_button_pressed() -> void:
 	"""
 	var player_name = $SuccessPanel/NewHighScorePanel/NameLineEdit.text
 	if player_name.length() > 0:
+		$SuccessPanel/NewHighScorePanel.hide()
 		$SuccessPanel.hide()
 		Globals.update_high_scores(player_name, stats.score, Globals.options["color_count"])
