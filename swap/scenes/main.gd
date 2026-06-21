@@ -17,6 +17,7 @@ var stats = {
 # Saved states for the game. Used for undo mechanism.
 var game_states: Array = []
 
+#-------------------------------------------------------------------------------
 
 func _ready() -> void:
 	$PanelScore/VersionLabel.text = "v.%03d" % [Globals.version]
@@ -24,6 +25,7 @@ func _ready() -> void:
 	$PlaygroundSquare.tile_destroyed.connect(_on_tile_destroyed)
 	$ConfigDialog.configuration_applied.connect(_on_new_game_configured)
 	$SuccessPanel.visible = false
+	Globals.load_high_scores()
 	start_game()
 
 
@@ -41,6 +43,9 @@ func _unhandled_input(ev):
 		restore_state()
 	elif ev.is_action_released("ChangeColors"):
 		init_tile_colors(false)
+	elif ev.is_action_released("ShowHighScores"):
+		$HighScoresPanel.popup_centered()
+
 
 
 func start_game():
@@ -89,6 +94,7 @@ func reset_stats():
 
 
 func quit_game():
+	Globals.save_high_scores()
 	get_tree().quit()
 
 
@@ -154,6 +160,7 @@ func restore_state():
 	if game_states.size() == 0:
 		$PanelScore/ButtonUndo.disabled = true
 
+#-------------------------------------------------------------------------------
 
 func _on_tile_clicked():
 	"""
@@ -177,11 +184,30 @@ func _on_tile_destroyed(count: int):
 		$Title.flip()
 		stats.stars_won = min(stats.stars_won + 1, MAX_STARS)
 	self.update_score()
-	if $PlaygroundSquare.is_empty():
-		#self.show_message("Success!")
-		$SuccessPanel.visible = true
-		$AudioPlayerSuccess.play()
-		$PlaygroundSquare.celebrate_success()
+	self.check_success()
+
+
+func check_success() -> void:
+	"""
+	Check if the player succeeded
+	"""
+	if not $PlaygroundSquare.is_empty():
+		return
+	# Success
+	$SuccessPanel.visible = true
+	$AudioPlayerSuccess.play()
+	$PlaygroundSquare.celebrate_success()
+	if Globals.is_high_score(stats.score):
+		get_tree().create_timer(2.0).timeout.connect(handle_new_highscore)
+
+
+func handle_new_highscore() -> void:
+	"""
+	Called when the user beats a previous high score
+	"""
+	$AudioPlayerSuccess.play()
+	$SuccessPanel/NewHighScorePanel.visible = true
+	$PlaygroundSquare.celebrate_success()
 
 
 func _on_button_avalanche_pressed() -> void:
@@ -234,3 +260,20 @@ func _on_button_change_colors_pressed() -> void:
 	Handles click on Change Colors button
 	"""
 	init_tile_colors(false)
+
+
+func _on_high_scores_button_pressed() -> void:
+	"""
+	Handles click on High Scores button
+	"""
+	$HighScoresPanel.popup_centered()
+
+
+func _on_new_high_score_ok_button_pressed() -> void:
+	"""
+	Handles click on New High Score OK button
+	"""
+	var player_name = $SuccessPanel/NewHighScorePanel/NameLineEdit.text
+	if player_name.length() > 0:
+		$SuccessPanel.hide()
+		Globals.update_high_scores(player_name, stats.score, Globals.options["color_count"])

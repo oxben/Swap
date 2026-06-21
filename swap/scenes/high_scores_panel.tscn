@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://bvdahrk0xvft1"]
+
+[ext_resource type="Script" uid="uid://cmsxfgjesvk5g" path="res://scenes/high_scores_panel.gd" id="1_p3inl"]
+[ext_resource type="LabelSettings" uid="uid://cq3hijc27tplv" path="res://assets/ui/high_score_label_settings.tres" id="2_wlcuq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wlcuq"]
+font_size = 60
+font_color = Color(1, 0.78466666, 0.32, 1)
+outline_size = 8
+outline_color = Color(0.43, 0.29383335, 0, 1)
+shadow_size = 12
+shadow_color = Color(0, 0, 0, 0.5019608)
+shadow_offset = Vector2(4, 4)
+
+[node name="HighScoresPanel" type="Window" unique_id=2043377058]
+oversampling_override = 1.0
+position = Vector2i(0, 36)
+size = Vector2i(632, 500)
+transient = true
+unresizable = true
+borderless = true
+script = ExtResource("1_p3inl")
+
+[node name="Panel" type="Panel" parent="." unique_id=648691179]
+offset_right = 632.0
+offset_bottom = 500.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=344959656]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 12.0
+offset_right = 616.0
+offset_bottom = 484.0
+
+[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer" unique_id=2070487766]
+layout_mode = 2
+text = "High Scores"
+label_settings = SubResource("LabelSettings_wlcuq")
+horizontal_alignment = 1
+
+[node name="ScoresGrid" type="GridContainer" parent="Panel/VBoxContainer" unique_id=403358031]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+columns = 4
+
+[node name="RankHeaderLabel" type="Label" parent="Panel/VBoxContainer/ScoresGrid" unique_id=1923778936]
+layout_mode = 2
+text = "  Rank  "
+label_settings = ExtResource("2_wlcuq")
+horizontal_alignment = 1
+
+[node name="ScoreHeaderLabel" type="Label" parent="Panel/VBoxContainer/ScoresGrid" unique_id=1732536164]
+layout_mode = 2
+text = "  Score  "
+label_settings = ExtResource("2_wlcuq")
+horizontal_alignment = 1
+
+[node name="NameHeaderLabel" type="Label" parent="Panel/VBoxContainer/ScoresGrid" unique_id=950920872]
+layout_mode = 2
+text = "  Name  "
+label_settings = ExtResource("2_wlcuq")
+horizontal_alignment = 1
+
+[node name="ColorsLabel" type="Label" parent="Panel/VBoxContainer/ScoresGrid" unique_id=793970012]
+layout_mode = 2
+text = "# Colors"
+label_settings = ExtResource("2_wlcuq")
+
+[node name="CloseButton" type="Button" parent="Panel/VBoxContainer" unique_id=2088269071]
+layout_mode = 2
+text = "Close"
+
+[connection signal="about_to_popup" from="." to="." method="_on_about_to_popup"]
+[connection signal="pressed" from="Panel/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

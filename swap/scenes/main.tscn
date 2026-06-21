@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bydj2q725jr0f" path="res://scenes/stars_panel.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://bypyb0ca87m6s" path="res://scenes/swap_title.tscn" id="6_tefeu"]
 [ext_resource type="AudioStream" uid="uid://yb6x54wod120" path="res://assets/sounds/success.ogg" id="8_tipki"]
+[ext_resource type="PackedScene" uid="uid://bvdahrk0xvft1" path="res://scenes/high_scores_panel.tscn" id="11_ya4ey"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_o6xl0"]
 font_size = 12
@@ -23,6 +24,15 @@ outline_color = Color(0.80903864, 0.5088226, 0, 1)
 shadow_size = 12
 shadow_color = Color(0, 0, 0, 0.5019608)
 shadow_offset = Vector2(4, 4)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ya4ey"]
+font_size = 20
+font_color = Color(1, 0.8509804, 0, 1)
+outline_size = 4
+outline_color = Color(0.80903864, 0.5088226, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.5019608)
+shadow_offset = Vector2(3, 3)
 
 [node name="Main" type="Node3D" unique_id=1447419065]
 script = ExtResource("1_0wfyh")
@@ -64,9 +74,6 @@ surface_material_override/0 = ExtResource("3_choun")
 
 [node name="PlaygroundSquare" parent="." unique_id=538029405 instance=ExtResource("1_o5qli")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
-
-[node name="ConfigDialog" parent="." unique_id=1935946135 instance=ExtResource("3_o6xl0")]
-visible = false
 
 [node name="PanelTitle" type="Panel" parent="." unique_id=1057081484]
 visible = false
@@ -157,18 +164,26 @@ text = "↩ Undo ↩"
 [node name="ButtonChangeColors" type="Button" parent="PanelScore" unique_id=661511866]
 layout_mode = 0
 offset_left = 368.0
-offset_top = 400.0
+offset_top = 360.0
 offset_right = 496.0
-offset_bottom = 431.0
+offset_bottom = 391.0
 text = "Change Colors"
 
 [node name="ButtonRestart" type="Button" parent="PanelScore" unique_id=446870877]
 layout_mode = 0
 offset_left = 368.0
+offset_top = 400.0
+offset_right = 496.0
+offset_bottom = 431.0
+text = "New Game"
+
+[node name="HighScoresButton" type="Button" parent="PanelScore" unique_id=334752817]
+layout_mode = 0
+offset_left = 368.0
 offset_top = 440.0
 offset_right = 496.0
 offset_bottom = 471.0
-text = "New Game"
+text = "High Scores"
 
 [node name="ButtonQuit" type="Button" parent="PanelScore" unique_id=387612053]
 layout_mode = 0
@@ -207,6 +222,41 @@ label_settings = SubResource("LabelSettings_tipki")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="NewHighScorePanel" type="Panel" parent="SuccessPanel" unique_id=1515795591]
+visible = false
+layout_mode = 0
+offset_top = 200.0
+offset_right = 256.0
+offset_bottom = 328.0
+
+[node name="Label" type="Label" parent="SuccessPanel/NewHighScorePanel" unique_id=1956888904]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 248.0
+offset_bottom = 72.0
+text = "New high score!
+Please enter your name"
+label_settings = SubResource("LabelSettings_ya4ey")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NameLineEdit" type="LineEdit" parent="SuccessPanel/NewHighScorePanel" unique_id=178999841]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 80.0
+offset_right = 176.0
+offset_bottom = 111.0
+max_length = 8
+
+[node name="OkButton" type="Button" parent="SuccessPanel/NewHighScorePanel" unique_id=1649239732]
+layout_mode = 0
+offset_left = 184.0
+offset_top = 80.0
+offset_right = 240.0
+offset_bottom = 111.0
+text = "OK"
+
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=1658878266]
 
 [node name="AcceptDialog" type="AcceptDialog" parent="." unique_id=348880569]
@@ -224,8 +274,16 @@ transform = Transform3D(0.25218242, 0, 0, 0, 0.5, 0, 0, 0, 0.25218242, 1.2401133
 stream = ExtResource("8_tipki")
 volume_db = -10.0
 
+[node name="ConfigDialog" parent="." unique_id=1935946135 instance=ExtResource("3_o6xl0")]
+visible = false
+
+[node name="HighScoresPanel" parent="." unique_id=2043377058 instance=ExtResource("11_ya4ey")]
+visible = false
+
 [connection signal="pressed" from="PanelScore/ButtonAvalanche" to="." method="_on_button_avalanche_pressed"]
 [connection signal="pressed" from="PanelScore/ButtonUndo" to="." method="_on_button_undo_pressed"]
 [connection signal="pressed" from="PanelScore/ButtonChangeColors" to="." method="_on_button_change_colors_pressed"]
 [connection signal="pressed" from="PanelScore/ButtonRestart" to="." method="_on_button_restart_pressed"]
+[connection signal="pressed" from="PanelScore/HighScoresButton" to="." method="_on_high_scores_button_pressed"]
 [connection signal="pressed" from="PanelScore/ButtonQuit" to="." method="_on_button_quit_pressed"]
+[connection signal="pressed" from="SuccessPanel/NewHighScorePanel/OkButton" to="." method="_on_new_high_score_ok_button_pressed"]

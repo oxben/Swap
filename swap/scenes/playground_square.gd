@@ -171,7 +171,6 @@ func restore_state(saved_tile_grid: Array[Array]):
 func celebrate_success():
 	if not is_empty():
 		return
-
 	for y in range(GRID_SIZE):
 		for x in range(GRID_SIZE):
 			if randf() < 0.25:
@@ -179,6 +178,7 @@ func celebrate_success():
 				add_tile(x, y, color)
 				var tile = get_tile_node(x, y)
 				destroy_tile(tile, color, 1.5)
+				tile_grid[y][x] = -1
 
 
 func _on_tile_hovered(x: int, y: int, side: int):
